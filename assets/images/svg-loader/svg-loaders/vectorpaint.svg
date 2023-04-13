@@ -1,0 +1,12 @@
+<svg width="80.625" height="69.75000000000001" xmlns="http://www.w3.org/2000/svg" stroke="#fff"><rect id="backgroundrect" width="100%" height="100%" x="0" y="0" fill="none" stroke="none" style="" class=""/>
+    
+<g class="currentLayer" style=""><title>Layer 1</title><g fill="none" fill-rule="evenodd" stroke-width="3" id="svg_1" class="" stroke="#04b804" stroke-opacity="1" opacity="0.86">
+        <circle cx="40.22093963623047" cy="37.87718963623047" r="10.851585388183594" id="svg_2" stroke="#04b804" stroke-opacity="1" stroke-width="3" opacity="0.86">
+            <animate attributeName="r" begin="0s" dur="1.8s" values="1; 20" calcMode="spline" keyTimes="0; 1" keySplines="0.165, 0.84, 0.44, 1" repeatCount="indefinite"/>
+            <animate attributeName="stroke-opacity" begin="0s" dur="1.8s" values="1; 0" calcMode="spline" keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="40.22093963623047" cy="37.87718963623047" r="19.369979858398438" id="svg_3" stroke="#04b804" stroke-opacity="1" stroke-width="3" opacity="0.86">
+            <animate attributeName="r" begin="-0.9s" dur="1.8s" values="1; 20" calcMode="spline" keyTimes="0; 1" keySplines="0.165, 0.84, 0.44, 1" repeatCount="indefinite"/>
+            <animate attributeName="stroke-opacity" begin="-0.9s" dur="1.8s" values="1; 0" calcMode="spline" keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1" repeatCount="indefinite"/>
+        </circle>
+    </g></g></svg>

@@ -1,0 +1,110 @@
+.navbar-light {
+  background-color: #FFFFFF !important;
+}
+.navbar-light a {
+  color: #000 !important;
+}
+
+.panel-heading {
+  margin-bottom: 2em !important;
+}
+
+.message-text {
+  font-size: 14px;
+}
+
+.search-barang {
+  box-sizing: border-box;
+  height: auto;
+}
+.search-barang .search-box-barang {
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 450px;
+  width: 100%;
+  margin-bottom: 1em !important;
+}
+.search-barang .search-box-barang .item-barang {
+  position: relative;
+  width: auto;
+  height: auto;
+  padding: 1.3em;
+  margin-left: 1em;
+  margin-right: 1em !important;
+  border-bottom: 1px solid #ccc;
+}
+.search-barang .search-box-barang .item-barang:hover {
+  background-color: #ddd;
+}
+.search-barang .search-box-barang .item-barang .label-harga {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.search-barang .search-box-barang .item-barang .label-harga span {
+  font-size: 14px !important;
+  text-transform: none !important;
+}
+.search-barang .search-box-barang .item-barang:first-child {
+  margin-top: 1em;
+}
+.search-barang .search-box-barang .item-barang:last-child {
+  margin-bottom: 1em;
+}
+.search-barang .search-box-barang .item-barang .detail-barang {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.search-barang .search-box-barang .item-barang .detail-barang .action-barang {
+  align-self: center;
+}
+.search-barang .search-box-barang .item-barang .detail-barang .action-barang button {
+  margin-top: 1em !important;
+}
+
+.loader {
+  width: 100%;
+  height: 100%;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader img {
+  width: 80px;
+}
+
+.panel-dashboard {
+  height: 150px !important;
+  position: relative !important;
+}
+.panel-dashboard .title-panel-dashboard {
+  font-size: 18px !important;
+  font-weight: bold;
+}
+.panel-dashboard .title-panel-dashboard i {
+  margin-right: 0.5em;
+}
+.panel-dashboard .text-content {
+  margin-top: 2em;
+}
+
+.title-item a {
+  color: black !important;
+}
+
+.form-search {
+  margin-bottom: 4em !important;
+}
+
+.navbar {
+  z-index: 90 !important;
+}
+
+.navbar+.navbar {
+  z-index: 80 !important;
+}
+/*# sourceMappingURL=custom.css.map */
