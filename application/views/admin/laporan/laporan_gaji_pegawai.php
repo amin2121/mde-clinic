@@ -42,7 +42,7 @@
                       <div class="form-group">
                         <label class="control-label col-sm-1"><b>Pilih Cabang</b></label>
                         <div class="col-sm-5">
-                          <select class="bootstrap-select" data-width="100%" name="id_cabang">
+                          <select class="bootstrap-select" data-width="100%" name="id_cabang" id="id_cabang">
                             <option value="semua">Semua</option>
                             <?php foreach ($cabang as $c): ?>
                               <option value="<?php echo $c['id']; ?>"><?php echo $c['nama']; ?></option>
@@ -57,7 +57,7 @@
                         <div class="form-group">
                           <label class="control-label col-sm-3"><b>Tanggal Dari</b></label>
                           <div class="col-sm-8">
-                            <input type="text" class="form-control input-tgl" name="tgl_dari">
+                            <input type="text" class="form-control input-tgl" name="tgl_dari" id="tgl_dari">
                           </div>
                         </div>
                       </div>
@@ -65,57 +65,21 @@
                         <div class="form-group">
                           <label class="control-label col-sm-3"><b>Tanggal Sampai</b></label>
                           <div class="col-sm-8">
-                            <input type="text" class="form-control input-tgl" name="tgl_sampai">
+                            <input type="text" class="form-control input-tgl" name="tgl_sampai" id="tgl_sampai">
                           </div>
                         </div>
                       </div>
                     </div>
                     
-                    <!-- <div id="form-bulan">
-                      <div class="col-sm-6">
-                        <div class="form-group">
-        									<label class="control-label col-sm-3"><b>Bulan</b></label>
-        									<div class="col-sm-8">
-        										<select class="bootstrap-select" data-width="100%" name="bulan">
-                              <?php
-                              $bulan=array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember");
-                              $jlh_bln=count($bulan);
-                              $no = 0;
-                              for($c=0; $c<$jlh_bln; $c+=1){
-                                  $no++;
-                                  $no_pas =  sprintf("%02s", $no);
-                              ?>
-                              <option value="<?php echo $no_pas; ?>" <?php if ($no_pas == date('m')) {echo 'selected';}; ?>> <?php echo $bulan[$c]; ?> </option>
-                              <?php
-                              }
-                              ?>
-                            </select>
-        									</div>
-        								</div>
-                      </div>
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                          <label class="control-label col-sm-3"><b>Tahun</b></label>
-                          <div class="col-sm-8">
-                            <select name="bulan_tahun" class="bootstrap-select" data-width="100%">
-                              <?php
-                              $now=date('Y');
-                              for ($a=2010;$a<=$now;$a++){
-                              ?>
-                                <option value="<?php echo $a; ?>" <?php if ($a == date('Y')) {echo 'selected';}; ?>><?php echo $a; ?></option>
-                              <?php
-                              }
-                              ?>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
 
       						</div>
 
-									<button class="btn btn-primary" type="submit" style="margin-top: 1em;"><i class="fa fa-search position-left"></i> Cari</button>
-								</form>
+									<button class="btn btn-primary" type="submit" ><i class="fa fa-print position-left"></i> Cari</button>
+                  <button type="button" class="btn btn-info" onclick="export_excel()"><i class="fa fa-file-excel-o"
+                        style="margin-right: 6px;"></i> Export
+                      Excel</button>
+
+                </form>
 
 
 
@@ -162,6 +126,16 @@
         todayHighlight: true
     });
   });
+
+
+  function export_excel() {
+      let id_cabang = $('#id_cabang').val();
+      let filter_dari = $('#tgl_dari').val();
+      let filter_sampai = $('#tgl_sampai').val();
+
+      let link = `<?php echo base_url('laporan/Gaji_pegawai/export_excel'); ?>?tgl_dari=${filter_dari}&tgl_sampai=${filter_sampai}&id_cabang=${id_cabang}`;
+      window.open(link, '_blank').focus();
+    }
 
 </script>
 <!-- /page container -->

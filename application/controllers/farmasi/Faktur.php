@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Faktur extends CI_Controller {
+class Faktur extends CI_Controller
+{
 	public function __construct()
 	{
 		parent::__construct();
@@ -10,14 +11,15 @@ class Faktur extends CI_Controller {
 		$this->load->model('farmasi/M_master_farmasi', 'farmasi');
 	}
 
-	public function index(){
+	public function index()
+	{
 		if (!$this->session->userdata('logged_in')) {
-    		redirect('auth');
-    	}
+			redirect('auth');
+		}
 
 		$data['title'] = 'Faktur';
 		$data['menu'] = 'farmasi';
-		$data['fakturs']	= $this->model->get_faktur();
+		$data['fakturs'] = $this->model->get_faktur();
 		$data['suppliers'] = $this->supplier->get_supplier();
 		$data['barang'] = $this->model->get_barang(null, null);
 
@@ -32,15 +34,15 @@ class Faktur extends CI_Controller {
 		$get_nama_barang = $this->model->get_barang($id_barang, $search_barang);
 
 		$result = [];
-		if($get_nama_barang) {
+		if ($get_nama_barang) {
 			$result = [
-				'status'		=> true,
-				'data'			=> $get_nama_barang
+				'status' => true,
+				'data' => $get_nama_barang
 			];
 		} else {
 			$result = [
-				'status'		=> false,
-				'message'		=> 'Data Barang Kosong'
+				'status' => false,
+				'message' => 'Data Barang Kosong'
 			];
 		}
 
@@ -52,15 +54,15 @@ class Faktur extends CI_Controller {
 		$tanggal = $this->input->post('tanggal');
 		$faktur = $this->model->cari_faktur_by_tanggal($tanggal);
 
-		if($faktur) {
+		if ($faktur) {
 			$result = [
-				'status'	=> true,
-				'data'		=> $faktur
+				'status' => true,
+				'data' => $faktur
 			];
 		} else {
 			$result = [
-				'status'	=> false,
-				'message'	=> 'Faktur tidak Ada'
+				'status' => false,
+				'message' => 'Faktur tidak Ada'
 			];
 		}
 
@@ -71,17 +73,17 @@ class Faktur extends CI_Controller {
 	{
 		$id_barang = $this->input->get('id_barang');
 
-		if(!empty($id_barang)) {
+		if (!empty($id_barang)) {
 			$action_get_barang = $this->model->get_barang($id_barang, null);
 			echo json_encode([
-				'status'	=> true,
-				'data'		=> $action_get_barang
+				'status' => true,
+				'data' => $action_get_barang
 			]);
 		} else {
-			$action_get_barang  = $this->model->get_barang(null, null);
+			$action_get_barang = $this->model->get_barang(null, null);
 			echo json_encode([
-				'status'	=> true,
-				'data'		=> $action_get_barang
+				'status' => true,
+				'data' => $action_get_barang
 			]);
 		}
 	}
@@ -91,36 +93,41 @@ class Faktur extends CI_Controller {
 		$id_supplier = $this->input->post('supplier');
 		$tipe_pembayaran = $this->input->post('tipe_pembayaran');
 		$total_harga_beli = $this->input->post('total_harga_beli');
-		
+
 		$status_bayar = 1;
 		$tanggal_bayar = ($this->input->post('tanggal_pembayaran')) ? $this->input->post('tanggal_pembayaran') : date('d-m-Y');
 
 		$faktur = [
-			'id_supplier'			=> $id_supplier,
-			'total_harga_beli'		=> $total_harga_beli,
-			'no_faktur'				=> $this->input->post('no_faktur'),
-			'tipe_pembayaran'		=> $tipe_pembayaran,
-			'tanggal_pembayaran'	=> $tanggal_bayar,
-			'status_bayar'			=> $tipe_pembayaran == "kredit" ? 0 : $status_bayar,
-			'created_at'			=> date($this->config->item('log_date_format')),
-			'tanggal'				=> date('d-m-Y'),
-			'bulan'					=> date('m'),
-			'tahun'					=> date('Y'),
-			'waktu'					=> date('H:i:s')
+			'id_supplier' => $id_supplier,
+			'total_harga_beli' => $total_harga_beli,
+			'no_faktur' => $this->input->post('no_faktur'),
+			'status_pembelian' => $this->input->post('status_pembelian'),
+			'tipe_pembayaran' => $tipe_pembayaran,
+			'tanggal_pembayaran' => $tanggal_bayar,
+			'status_bayar' => $tipe_pembayaran == "kredit" ? 0 : $status_bayar,
+			'tanggal' => date('d-m-Y'),
+			'created_at' => date($this->config->item('log_date_format')),
+			'bulan' => date('m'),
+			'tahun' => date('Y'),
+			'waktu' => date('H:i:s')
 		];
 
 		$detail_faktur = [
-			'nama_barang'		=> $this->input->post('nama_barang'),
-			'id_barang'			=> $this->input->post('id_barang'),
-			'kode_barang'		=> $this->input->post('kode_barang'),
-			'jumlah_beli'		=> $this->input->post('jumlah_beli'),
-			'harga_awal'		=> $this->input->post('harga_awal'),
-			'harga_jual'		=> $this->input->post('harga_jual'),
-			'tanggal_kadaluarsa'=> $this->input->post('tanggal_kadaluarsa'),
-			'laba'				=> $this->input->post('laba'),
+			'nama_barang' => $this->input->post('nama_barang'),
+			'id_barang' => $this->input->post('id_barang'),
+			'kode_barang' => $this->input->post('kode_barang'),
+			'jumlah_beli' => $this->input->post('jumlah_beli'),
+			'laba_resep' => $this->input->post('laba_resep'),
+			'laba_up_apotek' => $this->input->post('laba_up_apotek'),
+			'harga_awal' => $this->input->post('harga_awal'),
+			'harga_jual' => $this->input->post('harga_jual'),
+			'harga_resep' => $this->input->post('harga_resep'),
+			'harga_up_apotek' => $this->input->post('harga_up_apotek'),
+			'laba' => $this->input->post('laba'),
+			'tanggal_kadaluarsa' => $this->input->post('tanggal_kadaluarsa'),
 		];
-
-		if($this->model->tambah_faktur($faktur, $detail_faktur)) {
+		// var_dump($detail_faktur); die;
+		if ($this->model->tambah_faktur($faktur, $detail_faktur)) {
 			$this->session->set_flashdata('message', 'Faktur Berhasil <span class="text-semibold">Ditambahkan</span>');
 			$this->session->set_flashdata('status', 'success');
 			redirect('farmasi/faktur');
@@ -135,13 +142,13 @@ class Faktur extends CI_Controller {
 	{
 		$id_faktur = $this->input->post('id_faktur');
 		$data = [
-			'no_faktur'			=> $this->input->post('no_faktur'),
-			'id_supplier'		=> $this->input->post('supplier'),
-			'status_bayar'		=> $this->input->post('status_bayar'),
-			'updated_at'		=> date($this->config->item('log_date_format'))
+			'no_faktur' => $this->input->post('no_faktur'),
+			'id_supplier' => $this->input->post('supplier'),
+			'status_bayar' => $this->input->post('status_bayar'),
+			'updated_at' => date($this->config->item('log_date_format'))
 		];
 
-		if($this->model->ubah_faktur($data, $id_faktur)) {
+		if ($this->model->ubah_faktur($data, $id_faktur)) {
 			$this->session->set_flashdata('message', 'Faktur Berhasil <span class="text-semibold">Diubah</span>');
 			$this->session->set_flashdata('status', 'success');
 			redirect('farmasi/faktur');
@@ -156,7 +163,7 @@ class Faktur extends CI_Controller {
 	{
 		$id_faktur = $this->input->get('id_faktur');
 
-		if($this->model->hapus_faktur($id_faktur)) {
+		if ($this->model->hapus_faktur($id_faktur)) {
 			$this->session->set_flashdata('message', 'Faktur Berhasil <span class="text-semibold">Dihapus</span>');
 			$this->session->set_flashdata('status', 'success');
 			redirect('farmasi/faktur');
@@ -167,10 +174,11 @@ class Faktur extends CI_Controller {
 		}
 	}
 
-	public function detail_faktur(){
+	public function detail_faktur()
+	{
 		if (!$this->session->userdata('logged_in')) {
-    		redirect('auth');
-    	}
+			redirect('auth');
+		}
 
 		$id_faktur = $this->input->get('id_faktur');
 		$data['title'] = 'Detail Faktur';
@@ -178,7 +186,7 @@ class Faktur extends CI_Controller {
 		$data['detail_faktur'] = $this->model->get_detail_faktur($id_faktur);
 		$data['barang'] = $this->model->get_barang(null, null);
 		$data['id_faktur'] = $id_faktur;
-		
+
 		$this->load->view('admin/farmasi/detail_faktur', $data);
 	}
 
@@ -187,29 +195,29 @@ class Faktur extends CI_Controller {
 		$id_faktur = $this->input->get('id_faktur');
 
 		$data = [
-			'id_faktur'		=> $id_faktur,
-			'id_barang'		=> $this->input->post('id_barang'),
-			'nama_barang'	=> $this->input->post('nama_barang'),
-			'kode_barang'	=> $this->input->post('kode_barang'),
-			'jumlah_beli'	=> $this->input->post('jumlah_beli'),
-			'harga_awal'	=> $this->input->post('harga_awal'),
-			'harga_jual'	=> $this->input->post('harga_jual'),
-			'laba'			=> $this->input->post('laba'),
+			'id_faktur' => $id_faktur,
+			'id_barang' => $this->input->post('id_barang'),
+			'nama_barang' => $this->input->post('nama_barang'),
+			'kode_barang' => $this->input->post('kode_barang'),
+			'jumlah_beli' => $this->input->post('jumlah_beli'),
+			'harga_awal' => $this->input->post('harga_awal'),
+			'harga_jual' => $this->input->post('harga_jual'),
+			'laba' => $this->input->post('laba'),
 			'tanggal_kadaluarsa' => ($this->input->post('tanggal_kadaluarsa') == '') ? '' : $this->input->post('tanggal_kadaluarsa'),
-			'tanggal'		=> date('d-m-Y'),
-			'waktu'			=> date('H:i:s'),
-			'created_at'	=> date($this->config->item('log_date_format'))
+			'tanggal' => date('d-m-Y'),
+			'waktu' => date('H:i:s'),
+			'created_at' => date($this->config->item('log_date_format'))
 		];
 
 
-		if($this->model->tambah_detail_faktur($data, $this->input->post('total_beli'))) {
+		if ($this->model->tambah_detail_faktur($data, $this->input->post('total_beli'))) {
 			$this->session->set_flashdata('message', 'Barang Berhasil <span class="text-semibold">Ditambahkan</span>');
 			$this->session->set_flashdata('status', 'success');
-			redirect('farmasi/faktur/detail_faktur?id_faktur='. $id_faktur);
+			redirect('farmasi/faktur/detail_faktur?id_faktur=' . $id_faktur);
 		} else {
 			$this->session->set_flashdata('message', 'Barang Gagal <span class="text-semibold">Ditambahkan</span>');
 			$this->session->set_flashdata('status', 'danger');
-			redirect('farmasi/faktur/detail_faktur?id_faktur='. $id_faktur);
+			redirect('farmasi/faktur/detail_faktur?id_faktur=' . $id_faktur);
 		}
 		// echo json_encode($this->input->post());
 	}
@@ -217,8 +225,8 @@ class Faktur extends CI_Controller {
 	public function view_ubah_detail_faktur()
 	{
 		if (!$this->session->userdata('logged_in')) {
-    		redirect('auth');
-    	}
+			redirect('auth');
+		}
 
 		$id_faktur = $this->input->get('id_faktur');
 		$id_detail_faktur = $this->input->get('id_detail_faktur');
@@ -236,25 +244,25 @@ class Faktur extends CI_Controller {
 		$id_detail_faktur = $this->input->get('id_detail_faktur');
 
 		$data = [
-			'id_faktur'				=> $id_faktur,
-			'id_barang'				=> $this->input->post('id_barang'),
-			'nama_barang'			=> $this->input->post('nama_barang'),
-			'kode_barang'			=> $this->input->post('kode_barang'),
-			'harga_awal'			=> $this->input->post('harga_awal'),
-			'harga_jual'			=> $this->input->post('harga_jual'),
-			'laba'					=> $this->input->post('laba'),
-			'tanggal_kadaluarsa'	=> ($this->input->post('tanggal_kadaluarsa')) ? $this->input->post('tanggal_kadaluarsa') : 0,
-			'updated_at'			=> date($this->config->item('log_date_format'))
+			'id_faktur' => $id_faktur,
+			'id_barang' => $this->input->post('id_barang'),
+			'nama_barang' => $this->input->post('nama_barang'),
+			'kode_barang' => $this->input->post('kode_barang'),
+			'harga_awal' => $this->input->post('harga_awal'),
+			'harga_jual' => $this->input->post('harga_jual'),
+			'laba' => $this->input->post('laba'),
+			'tanggal_kadaluarsa' => ($this->input->post('tanggal_kadaluarsa')) ? $this->input->post('tanggal_kadaluarsa') : 0,
+			'updated_at' => date($this->config->item('log_date_format'))
 		];
 
-		if($this->model->ubah_detail_faktur($data, $id_faktur, $id_detail_faktur)) {
+		if ($this->model->ubah_detail_faktur($data, $id_faktur, $id_detail_faktur)) {
 			$this->session->set_flashdata('message', 'Barang Berhasil <span class="text-semibold">Diubah</span>');
 			$this->session->set_flashdata('status', 'success');
-			redirect('farmasi/faktur/detail_faktur?id_faktur='. $id_faktur);
+			redirect('farmasi/faktur/detail_faktur?id_faktur=' . $id_faktur);
 		} else {
 			$this->session->set_flashdata('message', 'Barang Gagal <span class="text-semibold">Diubah</span>');
 			$this->session->set_flashdata('status', 'danger');
-			redirect('farmasi/faktur/detail_faktur?id_faktur='. $id_faktur);
+			redirect('farmasi/faktur/detail_faktur?id_faktur=' . $id_faktur);
 		}
 
 		// echo json_encode($this->input->post());
@@ -265,14 +273,14 @@ class Faktur extends CI_Controller {
 		$id_faktur = $this->input->get('id_faktur');
 		$id_detail_faktur = $this->input->get('id_detail_faktur');
 
-		if($this->model->hapus_detail_faktur($id_faktur, $id_detail_faktur)) {
+		if ($this->model->hapus_detail_faktur($id_faktur, $id_detail_faktur)) {
 			$this->session->set_flashdata('message', 'Barang Berhasil <span class="text-semibold">Dihapus</span>');
 			$this->session->set_flashdata('status', 'success');
-			redirect('farmasi/faktur/detail_faktur?id_faktur='. $id_faktur);
+			redirect('farmasi/faktur/detail_faktur?id_faktur=' . $id_faktur);
 		} else {
 			$this->session->set_flashdata('message', 'Barang Gagal <span class="text-semibold">Dihapus</span>');
 			$this->session->set_flashdata('status', 'danger');
-			redirect('farmasi/faktur/detail_faktur?id_faktur='. $id_faktur);
+			redirect('farmasi/faktur/detail_faktur?id_faktur=' . $id_faktur);
 		}
 	}
 
@@ -281,15 +289,15 @@ class Faktur extends CI_Controller {
 		$get_faktur = $this->model->get_faktur();
 
 		$result = [];
-		if($get_faktur) {
+		if ($get_faktur) {
 			$result = [
-				'status'		=> true,
-				'data'			=> $get_faktur
+				'status' => true,
+				'data' => $get_faktur
 			];
 		} else {
 			$result = [
-				'status'		=> false,
-				'message'		=> 'Data Faktur Kosong'
+				'status' => false,
+				'message' => 'Data Faktur Kosong'
 			];
 		}
 
@@ -301,32 +309,33 @@ class Faktur extends CI_Controller {
 		$get_supplier = $this->model->get_supplier();
 
 		$result = [];
-		if($get_supplier) {
+		if ($get_supplier) {
 			$result = [
-				'status'		=> true,
-				'data'			=> $get_supplier
+				'status' => true,
+				'data' => $get_supplier
 			];
 		} else {
 			$result = [
-				'status'		=> false,
-				'message'		=> 'Data Supplier Kosong'
+				'status' => false,
+				'message' => 'Data Supplier Kosong'
 			];
 		}
 
 		echo json_encode($result);
 	}
 
-	function get_barang_ajax() {
+	function get_barang_ajax()
+	{
 		$get_barang = $this->model->get_barang_stok();
-		if($get_barang) {
+		if ($get_barang) {
 			$result = [
-				'status'		=> true,
-				'data'			=> $get_barang
+				'status' => true,
+				'data' => $get_barang
 			];
 		} else {
 			$result = [
-				'status'		=> false,
-				'message'		=> 'Barang Kosong'
+				'status' => false,
+				'message' => 'Barang Kosong'
 			];
 		}
 

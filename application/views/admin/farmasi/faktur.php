@@ -88,140 +88,141 @@
 							<div class="tab-pane" id="tambah-faktur">
 								<form action="<?= base_url('farmasi/faktur/tambah_faktur') ?>" class="form-horizontal" method="POST" id="form-tambah-faktur">
 									<fieldset class="content-group" style="margin-top: 2em !important;">
-										<!-- radio no faktur -->
-										<div class="form-group">
-											<div class="col-sm-12">
-												<label class="radio-inline">
-													<input type="radio" name="radio-no-faktur" id="radio-no-faktur-default" class="styled control-success" checked="checked" onchange="onDefaultOrGenerateNoFaktur(this)">
-													<b>Default</b>
-												</label>
+									<div class="form-group">
+															<label class="control-label col-sm-2"><b>No
+																	Faktur</b></label>
+															<div class="col-sm-10">
+																<input type="text"
+																class="form-control"
+																id="no-tambah-faktur"
+																name="no_faktur"
+																autocomplete="off"
+																placeholder="No Faktur">
+															</div>
+														</div>
 
-												<label class="radio-inline">
-													<input type="radio" name="radio-no-faktur" id="radio-no-faktur-generate" class="styled control-success" onchange="onDefaultOrGenerateNoFaktur(this)">
-													<b>Generate</b>
-												</label>
-											</div>
-										</div>
-										<!-- radio no faktur -->
+														<div class="form-group">
+															<label
+																class="control-label col-sm-2"><b>Supplier</b></label>
+															<div class="col-sm-10">
+																<select class="select-search" name="supplier">
+																	<?php foreach ($suppliers as $supplier): ?>
+																		<option value="<?= $supplier['id'] ?>"><?= $supplier['nama_supplier'] ?></option>
+																	<?php endforeach ?>
+																</select>
+															</div>
+														</div>
 
-										<div class="form-group">
-											<label class="control-label col-sm-2"><b>No Faktur</b></label>
-											<div class="col-sm-10">
-												<input type="text" class="form-control" id="no-tambah-faktur" name="no_faktur" placeholder="No Faktur">
-											</div>
-										</div>
+														<div class="form-group">
+															<label class="control-label col-sm-2"><b>Tipe
+																	Pembayaran</b></label>
+															<div class="col-sm-10">
+																<select class="select" name="tipe_pembayaran"
+																	onchange="select_tunai_or_kredit(this)">
+																	<option value="tunai">Tunai</option>
+																	<option value="kredit">Kredit</option>
+																</select>
+															</div>
+														</div>
 
-										<div class="form-group">
-											<label class="control-label col-sm-2"><b>Supplier</b></label>
-											<div class="col-sm-10">
-												<select class="select-search" name="supplier">
-													<?php foreach ($suppliers as $supplier): ?>
-														<option value="<?= $supplier['id'] ?>"><?= $supplier['nama_supplier'] ?></option>
-													<?php endforeach ?>
-												</select>
-											</div>
-										</div>
-
-										<div class="form-group">
-											<label class="control-label col-sm-2"><b>Tipe Pembayaran</b></label>
-											<div class="col-sm-10">
-												<select class="select" name="tipe_pembayaran" onchange="select_tunai_or_kredit(this)">
-													<option value="tunai">Tunai</option>
-													<option value="kredit">Kredit</option>
-												</select>
-											</div>
-										</div>
-
-										<div class="form-group" hidden id="form-tgl-pembayaran">
-											<label class="control-label col-sm-2"><b>Tanggal Pembayaran</b></label>
-											<div class="col-sm-10">
-												<div class="input-group">
-													<span class="input-group-addon"><i class="icon-calendar"></i></span>
-													<input type="text" class="form-control datepicker" placeholder="Pick a date&hellip;" name="tanggal_pembayaran" id="input-tgl-pembayaran-tambah-faktur">
-												</div>
-											</div>
-										</div>
-
-										<div class="table-responsive" style="margin-top: 3em;">
-											<table class="table table-bordered table-striped" id="table-tambah-faktur">
-												<thead>
-													<tr class="bg-success">
-														<th>Nama Barang</th>
-														<th>Kode Barang</th>
-														<th>Jumlah Beli</th>
-														<th>Harga Awal</th>
-														<th>Harga Jual</th>
-														<th>Laba</th>
-														<th>Tanggal Kadaluarsa</th>
-														<th>Action</th>
-													</tr>
-												</thead>
-												<tbody id="tbody-tambah-barang-faktur">
-													<tr style="cursor: pointer" id="row-faktur-1">
-														<td>
-															<input type="text" name="id_barang[]" id="id-barang-1" hidden="">
-															<!-- cari barang -->
-															<div class="form-group">
+														<div class="form-group" hidden id="form-tgl-pembayaran">
+															<label class="control-label col-sm-2"><b>Tanggal
+																	Pembayaran</b></label>
+															<div class="col-sm-10">
 																<div class="input-group">
-																	<span class="input-group-btn">
-																		<button class="btn btn-success btn-icon" type="button" onclick="get_barang(this, 1)"><i class="icon-search4"></i></button>
-																	</span>
-																	<input type="text" class="form-control" placeholder="Cari Barang Anda.." readonly id="search-barang-faktur-1" name="nama_barang[]">
+																	<span class="input-group-addon"><i
+																			class="icon-calendar"></i></span>
+																	<input type="text" class="form-control datepicker"
+																		placeholder="Pick a date&hellip;"
+																		name="tanggal_pembayaran"
+																		id="input-tgl-pembayaran-tambah-faktur">
 																</div>
 															</div>
+														</div>
 
-														</td>
-														<td>
-															<!-- kode barang -->
-															<div class="form-group">
-																<input type="text" class="form-control" readonly id="kode-barang-faktur-1" name="kode_barang[]">
+														<!-- radio for klinik -->
+														<div class="form-group">
+															<div class="col-sm-12">
+																<label class="radio-inline">
+																	<input type="radio" name="status_pembelian"
+																		id="status-pembelian" value="Dari Klinik"
+																		class="styled control-success" checked="checked">
+																	<b>Dari Klinik</b>
+																</label>
+																<label class="radio-inline">
+																	<input type="radio" name="status_pembelian"
+																		id="status-pembelian" value="Dari Luar Klinik"
+																		class="styled control-success">
+																	<b>Dari Luar Klinik</b>
+																</label>
 															</div>
-														</td>
-														<td>
-															<!-- jumlah beli -->
-															<div class="form-group">
-																<input type="text" class="form-control" id="jumlah-beli-faktur-1" name="jumlah_beli[]" onkeyup="hitung_total_harga_by_jumlah_beli(1)">
+														</div>
+														<!-- radio for klinik -->
+
+												<div class="table-responsive" style="margin-top: 3em;">
+													<table class="table table-bordered table-striped" id="table-tambah-faktur" style="padding-top:200px;">
+														<thead>
+															<tr class="bg-success">
+																<th>Nama Barang</th>
+																<th>Kode Barang</th>
+																<th>Jumlah Beli</th>
+																<th>Harga Awal</th>
+																<th>Tanggal Kadaluarsa</th>
+																<th>Action</th>
+															</tr>
+														</thead>
+														<tbody id="tbody-tambah-barang-faktur">
+															<tr class="accordion-toggle collapsed" style="cursor: pointer" id="row-faktur-1">
+																<td>
+																	<input type="text" name="id_barang[]" id="id-barang-1" hidden="">
+																	<!-- cari barang -->
+																	<div class="form-group">
+																		<div class="input-group">
+																			<span class="input-group-btn">
+																				<button class="btn btn-success btn-icon" type="button" onclick="get_barang(this, 1)"><i class="icon-search4"></i></button>
+																			</span>
+																			<input type="text" class="form-control" placeholder="Cari Barang Anda.." readonly id="search-barang-faktur-1" name="nama_barang[]">
+																		</div>
+																	</div>
+
+																</td>
+																<td>
+																	<!-- kode barang -->
+																	<div class="form-group">
+																		<input type="text" class="form-control" readonly id="kode-barang-faktur-1" name="kode_barang[]">
+																	</div>
+																</td>
+																<td>
+																	<!-- jumlah beli -->
+																	<div class="form-group">
+																		<input type="text" class="form-control" id="jumlah-beli-faktur-1" name="jumlah_beli[]" onkeyup="hitung_total_harga_by_jumlah_beli(1)">
+																	</div>
+																</td>
+																<td>
+																	<!-- harga awal -->
+																	<div class="form-group">
+																		<div class="input-group">
+																			<span class="input-group-addon"><b>Rp. </b></span>
+																			<input type="text" class="form-control rupiah" id="harga-awal-faktur-1" name="harga_awal[]" onkeyup="hitung_total_harga_by_harga_awal(1)" placeholder="Harga Awal">
+																		</div>
+																	</div>
+																</td>
+																<td>
+																	<!-- tanggal kadaluarsa -->
+																	<div class="form-group">
+																		<div class="input-group">
+																			<span class="input-group-addon"><i class="icon-calendar"></i></span>
+																			<input type="text" class="form-control datepicker" autocomplete="off" placeholder="Tanggal" name="tanggal_kadaluarsa[]" id="input-tgl-kadaluarsa-tambah-faktur-1">
+																		</div>
+																	</div>
+																	<!-- tanggal kadaluarsa -->
+																</td>
+															<td>
+															<div class="text-center">
+																<button type="button" id="accordion_1" data-toggle="collapse" data-parent="#accordion_1" href="#collapse_1" class="expand-button btn btn-sm btn-info collapsed" name="button"><i class="fa fa-plus"></i></button>
+																<button class="btn btn-sm btn-danger" disabled=""><i class="icon-bin"></i></button>
 															</div>
-														</td>
-														<td>
-															<!-- harga awal -->
-															<div class="form-group">
-																<div class="input-group">
-																	<span class="input-group-addon"><b>Rp. </b></span>
-																	<input type="text" class="form-control rupiah" id="harga-awal-faktur-1" name="harga_awal[]" onkeyup="hitung_total_harga_by_harga_awal(1)" placeholder="Harga Awal">
-																</div>
-															</div>
-														</td>
-														<td>
-															<!-- harga jual -->
-															<div class="form-group">
-																<div class="input-group">
-																	<span class="input-group-addon"><b>Rp. </b></span>
-																	<input type="text" class="form-control rupiah input-harga-jual" id="harga-jual-faktur-1" name="harga_jual[]" onkeyup="hitung_total_harga_beli(1)" placeholder="Harga Jual">
-																</div>
-															</div>
-														</td>
-														<td>
-															<!-- laba -->
-															<div class="form-group">
-																<div class="input-group">
-																	<span class="input-group-addon"><b>Rp. </b></span>
-																	<input type="text" class="form-control rupiah" name="laba[]" id="laba-faktur-1" readonly>
-																</div>
-															</div>
-														</td>
-														<td>
-															<!-- tanggal kadaluarsa -->
-															<div class="form-group">
-																<div class="input-group">
-																	<span class="input-group-addon"><i class="icon-calendar"></i></span>
-																	<input type="text" class="form-control datepicker" placeholder="Tanggal" name="tanggal_kadaluarsa[]" id="input-tgl-kadaluarsa-tambah-faktur-1">
-																</div>
-															</div>
-															<!-- tanggal kadaluarsa -->
-														</td>
-														<td>
-															<button class="btn btn-md btn-danger" disabled=""><i class="icon-bin"></i></button>
+
 															<!-- Modal Barang -->
 															<div id="modal_tampil_barang_1" class="modal fade">
 																<div class="modal-dialog modal-lg">
@@ -263,14 +264,61 @@
 
 																		<div class="modal-footer">
 																			<button class="btn btn-warning" data-dismiss="modal"><i class="icon-cross"></i> Keluar</button>
-
 																		</div>
 																	</div>
 																</div>
 															</div>
 															<!-- /Modal Barang -->
 														</td>
-
+													</tr>
+													<tr class="hide-table-padding" >
+														<td colspan="8" style="padding: 0px;">
+															<div id="collapse_1" class="collapse p-3">
+																<div class="table-responsive">
+																	<table class="tabelchild table table-striped table-bordered nowrap">
+																		<thead style="background:#4CAF50; color:#fff;">
+																		<tr>
+																				<th style="text-align:center;">Harga Bebas</th>
+																				<th style="text-align:center;">Harga Resep</th>
+																				<th style="text-align:center;">Harga Up Apotek Luar</th>
+																		</tr>
+																		</thead>
+																		<tr>
+																		<td>
+																			<!-- harga bebas -->
+																			<div class="form-group">
+																				<div class="input-group">
+																					<span class="input-group-addon"><b>Rp. </b></span>
+																					<input type="text" class="form-control rupiah input-harga-jual" id="harga-jual-faktur-1" name="harga_jual[]" onkeyup="hitung_total_harga_beli(1)" placeholder="Harga Jual">
+																					<input type="hidden" class="form-control rupiah" name="laba[]" id="laba-faktur-1" >
+																				</div>
+																			</div>
+																		</td>
+																			<td>
+																				<!-- Harga resep -->
+																				<div class="form-group">
+																					<div class="input-group">
+																						<span class="input-group-addon"><b>Rp. </b></span>
+																						<input type="text" class="form-control rupiah input-harga-resep" id="harga-resep-1" name="harga_resep[]" onkeyup="hitung_total_harga_beli(1)" placeholder="Harga Resep">
+																						<input type="hidden" class="form-control rupiah" name="laba_resep[]" id="laba-resep-1">
+																					</div>
+																				</div>
+																			</td>
+																			<td>
+																				<!-- Harga up apotek -->
+																				<div class="form-group">
+																					<div class="input-group">
+																						<span class="input-group-addon"><b>Rp. </b></span>
+																						<input type="text" class="form-control rupiah input-harga-up-apotek" id="harga-up-apotek-1" name="harga_up_apotek[]" onkeyup="hitung_total_harga_beli(1)" placeholder="Harga Up Apotek">
+																						<input type="hidden" class="form-control rupiah" name="laba_up_apotek[]" id="laba-up-apotek-1">
+																					</div>
+																				</div>
+																			</td>
+																		</tr>
+																	</table>
+																</div>
+															</div>
+														</td>
 													</tr>
 												</tbody>
 											</table>
@@ -279,7 +327,6 @@
 										<input type="text" hidden="" value="1" id="input-row-faktur-1">
 										<input type="text" id="total_beli_1" hidden="" class="harga_total_beli">
 										<button class="btn btn-md btn-warning" type="button" style="margin: 2em 0;" onclick="add_rows()"><i class="icon-plus3 position-left"></i> Tambah</button>
-
 										<div class="form-group">
 											<label class="control-label col-lg-2"><h6>Total Harga Beli</h6></label>
 											<div class="col-lg-10">
@@ -289,7 +336,6 @@
 												</div>
 											</div>
 										</div>
-
 										<div class="form-group">
 											<div class="col-lg-2"></div>
 											<div class="col-lg-10"><button class="btn btn-md bg-success-600" type="button" onclick="on_submit_tambah_faktur(this)"><i class="icon-floppy-disk position-left"></i> Simpan</button></div>
@@ -824,7 +870,6 @@
 					$(`#search-barang-faktur-${row}`).val(res.data.nama_barang)
 					$(`#kode-barang-faktur-${row}`).val(res.data.kode_barang)
 					$(`#harga-awal-faktur-${row}`).val(convertRupiah(parseInt(res.data.harga_awal)))
-					$(`#harga-jual-faktur-${row}`).val(convertRupiah(parseInt(res.data.harga_jual)))
 					$(`#laba-faktur-${row}`).val(res.data.laba)
 					$(`#input-tgl-kadaluarsa-tambah-faktur-${row}`).val(res.data.tanggal_kadaluarsa)
 
@@ -835,18 +880,29 @@
 
 	let hitung_total_harga_beli = (row) => {
 		let unMaskInputHargaAwal = $(`#harga-awal-faktur-${row}`).unmask();
-		let unMaskInputHargaJual = $(`#harga-jual-faktur-${row}`).unmask();
-		let unMaskInputLaba = $(`#laba-faktur-${row}`).unmask();
+			let unMaskInputHargaJual = $(`#harga-jual-faktur-${row}`).unmask();
+			let unMaskInputLaba = $(`#laba-faktur-${row}`).unmask();
+			let unMaskInputLabaBebas = $(`#harga-bebas-${row}`).unmask();
+			let unMaskInputLabaResep = $(`#harga-resep-${row}`).unmask();
+			let unMaskInputLabaUpApotek = $(`#harga-up-apotek-${row}`).unmask();
 
-		let hargaAwal = $(`#harga-awal-faktur-${row}`).val();
-		let hargaJual = $(`#harga-jual-faktur-${row}`).val();
-		let laba = $(`#laba-faktur-${row}`).val();
-		let jumlah_beli = $(`#jumlah-beli-faktur-${row}`).val();
+			let hargaAwal = $(`#harga-awal-faktur-${row}`).val();
+			let hargaJual = $(`#harga-jual-faktur-${row}`).val();
+			let laba = $(`#laba-faktur-${row}`).val();
+			let labaBebas = $(`#harga-bebas-${row}`).val();
+			let labaResep = $(`#harga-resep-${row}`).val();
+			let labaUpApotek = $(`#harga-up-apotek-${row}`).val();
+			let jumlah_beli = $(`#jumlah-beli-faktur-${row}`).val();
 
-		let total_harga_beli = parseInt(jumlah_beli) * parseInt(hargaAwal);
-		let valueLaba = parseInt(hargaJual) - parseInt(hargaAwal);
-		$(`#laba-faktur-${row}`).val(valueLaba);
-		$(`#total_beli_${row}`).val(total_harga_beli);
+			let total_harga_beli = parseInt(jumlah_beli) * parseInt(hargaAwal);
+			let valueLaba = parseInt(hargaJual) - parseInt(hargaAwal);
+			let valueLabaResep = parseInt(labaResep) - parseInt(hargaAwal);
+			let valueLabaUpApotek = parseInt(labaUpApotek) - parseInt(hargaAwal);
+  console.log(valueLaba,valueLabaResep,valueLabaUpApotek)
+			$(`#laba-up-apotek-${row}`).val(valueLabaUpApotek);
+			$(`#laba-resep-${row}`).val(valueLabaResep);
+			$(`#laba-faktur-${row}`).val(valueLaba);
+			$(`#total_beli_${row}`).val(total_harga_beli);
 
 		$('#total-harga-beli-faktur').val(0);
 
@@ -868,15 +924,27 @@
 			let unMaskInputHargaAwal = $(`#harga-awal-faktur-${row}`).unmask();
 			let unMaskInputHargaJual = $(`#harga-jual-faktur-${row}`).unmask();
 			let unMaskInputLaba = $(`#laba-faktur-${row}`).unmask();
+			let unMaskInputLabaBebas = $(`#harga-bebas-${row}`).unmask();
+			let unMaskInputLabaResep = $(`#harga-resep-${row}`).unmask();
+			let unMaskInputLabaUpApotek = $(`#harga-up-apotek-${row}`).unmask();
 
 			let hargaAwal = $(`#harga-awal-faktur-${row}`).val();
 			let hargaJual = $(`#harga-jual-faktur-${row}`).val();
 			let laba = $(`#laba-faktur-${row}`).val();
+			let labaBebas = $(`#harga-bebas-${row}`).val();
+			let labaResep = $(`#harga-resep-${row}`).val();
+			let labaUpApotek = $(`#harga-up-apotek-${row}`).val();
 			let jumlah_beli = $(`#jumlah-beli-faktur-${row}`).val();
 
 			let total_harga_beli = parseInt(jumlah_beli) * parseInt(hargaAwal);
 			let valueLaba = parseInt(hargaJual) - parseInt(hargaAwal);
-
+			let valueLabaBebas = parseInt(labaBebas) - parseInt(hargaAwal);
+			let valueLabaResep = parseInt(labaResep) - parseInt(hargaAwal);
+			let valueLabaUpApotek = parseInt(labaUpApotek) - parseInt(hargaAwal);
+  
+			$(`#laba-up-apotek-${row}`).val(valueLabaUpApotek);
+			$(`#laba-resep-${row}`).val(valueLabaResep);
+			$(`#laba-bebas-${row}`).val(valueLabaBebas);
 			$(`#laba-faktur-${row}`).val(valueLaba);
 			$(`#total_beli_${row}`).val(total_harga_beli);
 
@@ -896,6 +964,7 @@
 
 			}
 	}
+
 
 	let hitung_total_harga_by_jumlah_beli = (row) => {
 		let inputHargaJual = $(`#harga-jual-faktur-${row}`)
@@ -964,10 +1033,11 @@
 	}
 
 	let add_rows = () => {
-		let input_row = $(`#input-row-faktur-1`).val();
-		let increment_row =  parseInt(input_row) + 1;
+    let input_row = $(`#input-row-faktur-1`).val();
+    let increment_row = parseInt(input_row) + 1;
 
-		let rows = ` <tr style="cursor: pointer" id="row-faktur-${increment_row}">
+    let rows = `
+			<tr style="cursor: pointer" id="row-faktur-${increment_row}">			
 				<td>
 				<input type="text" name="id_barang[]" id="id-barang-${increment_row}" hidden>
 					<!-- cari barang -->
@@ -1003,24 +1073,6 @@
 					</div>
 				</td>
 				<td>
-					<!-- harga jual -->
-					<div class="form-group">
-						<div class="input-group">
-							<span class="input-group-addon"><b>Rp. </b></span>
-							<input type="text" class="form-control rupiah input-harga-jual" id="harga-jual-faktur-${increment_row}" name="harga_jual[]" onkeyup="hitung_total_harga_beli(${increment_row})">
-						</div>
-					</div>
-				</td>
-				<td>
-					<!-- laba -->
-					<div class="form-group">
-						<div class="input-group">
-							<span class="input-group-addon"><b>Rp. </b></span>
-							<input type="text" class="form-control rupiah" id="laba-faktur-${increment_row}" readonly name="laba[]">
-						</div>
-					</div>
-				</td>
-				<td>
 					<!-- tanggal kadaluarsa -->
 					<div class="form-group">
 						<div class="input-group">
@@ -1031,8 +1083,12 @@
 					<!-- tanggal kadaluarsa -->
 				</td>
 				<td>
+				<div class="text-center">
 					<input type="text" id="total_beli_${increment_row}" hidden="" class="harga_total_beli">
+					<button type="button" id="accordion_${increment_row}" data-toggle="collapse" data-parent="#accordion_${increment_row}" href="#collapse_${increment_row}" class="expand-button btn btn-sm btn-info" name="button"><i class="fa fa-plus"></i></button>
 					<button class="btn btn-md btn-danger" type="button" onclick="delete_rows(${increment_row})"><i class="icon-bin"></i></button>
+				</div>
+
 
 					<!-- Modal Barang -->
 					<div id="modal_tampil_barang_${increment_row}" class="modal fade">
@@ -1084,33 +1140,95 @@
 				</td>
 
 			</tr>
-		`
-		$(`#table-tambah-faktur #tbody-tambah-barang-faktur`).append(rows);
-		$(`#row-faktur-${increment_row}`).find(".datepicker").removeClass('hasDatePicker').datepicker({
-			showOtherMonths: true,
-	        selectOtherMonths: true,
-	        showButtonPanel: true,
-	        dateFormat : 'dd-mm-yy'
-		});
 
-		$(`#input-row-faktur-1`).val(increment_row);
-	}
 
-	let delete_rows = (row) => {
-		let decrement_row = row - 1;
-		$(`.rupiah`).unmask();
+		<tr class="hide-table-padding">
+		<td colspan="8" style="padding: 0px;">
+			<div id="collapse_${increment_row}" class="collapse p-3">
+				<div class="table-responsive">
+					<table class="tabelchild table table-striped table-bordered nowrap">
+						<thead style="background:#4CAF50; color:#fff;">
+							<tr>
+								<th style="text-align:center;">Harga Bebas</th>
+								<th style="text-align:center;">Harga Resep</th>
+								<th style="text-align:center;">Harga Up Apotek Luar</th>
+							</tr>
+							</thead>
+							<tr>
+							<td>
+								<!-- harga jual -->
+								<div class="form-group">
+									<div class="input-group">
+										<span class="input-group-addon"><b>Rp. </b></span>
+										<input type="text" class="form-control rupiah input-harga-jual" id="harga-jual-faktur-${increment_row}" name="harga_jual[]" onkeyup="hitung_total_harga_beli(${increment_row})">
+										<input type="hidden" class="form-control rupiah" id="laba-faktur-${increment_row}"  name="laba[]">
+									</div>
+								</div>
+							</td>
+							<td>
+								<!-- Harga resep -->
+								<div class="form-group">
+									<div class="input-group">
+										<span class="input-group-addon"><b>Rp. </b></span>
+										<input type="text" class="form-control rupiah input-harga-resep" id="harga-resep-${increment_row}" name="harga_resep[]" onkeyup="hitung_total_harga_beli(${increment_row})" placeholder="Harga Resep">
+										<input type="hidden" class="form-control rupiah" name="laba_resep[]" id="laba-resep-${increment_row}">
+									</div>
+								</div>
+							</td>
+							<td>
+								<!-- Harga up apotek -->
+								<div class="form-group">
+									<div class="input-group">
+										<span class="input-group-addon"><b>Rp. </b></span>
+										<input type="text" class="form-control rupiah input-harga-up-apotek" id="harga-up-apotek-${increment_row}" name="harga_up_apotek[]" onkeyup="hitung_total_harga_beli(${increment_row})" placeholder="Harga Up Apotek">
+										<input type="hidden" class="form-control rupiah" name="laba_up_apotek[]" id="laba-up-apotek-${increment_row}">
+									</div>
+								</div>
+							</td>
+							</tr>
+							</table>
+						</div>
+					</div>
+				</td>
+			</tr>
+			`;
 
-		let total_harga_beli = parseInt($(`#total-harga-beli-faktur`).val())
-		let harga_total_beli = parseInt($(`#total_beli_${row}`).val())
+$(`#table-tambah-faktur #tbody-tambah-barang-faktur`).append(rows);
 
-		let total_harga_beli_decrease = total_harga_beli - harga_total_beli
-		$(`#total-harga-beli-faktur`).val(total_harga_beli_decrease)
+// Inisialisasi datepicker
+$(`#row-faktur-${increment_row}`).find(".datepicker").removeClass('hasDatePicker').datepicker({
+	showOtherMonths: true,
+	selectOtherMonths: true,
+	showButtonPanel: true,
+	dateFormat: 'dd-mm-yy'
+});
 
-		$(`#row-faktur-${row}`).remove();
-		$(`#input-row-faktur-1`).val(decrement_row);
+// Perbarui nilai input baris
+$(`#input-row-faktur-1`).val(increment_row);
+}
+let delete_rows = (row) => {
+    let decrement_row = row - 1;
+    $(`.rupiah`).unmask();
 
-		$('.rupiah').mask('000.000.000', {reverse: true});
-	}
+    let total_harga_beli = parseInt($(`#total-harga-beli-faktur`).val());
+    let harga_total_beli = parseInt($(`#total_beli_${row}`).val());
+
+    let total_harga_beli_decrease = total_harga_beli - harga_total_beli;
+    $(`#total-harga-beli-faktur`).val(total_harga_beli_decrease);
+
+    // Hapus baris dengan ID row-faktur
+    $(`#row-faktur-${row}`).remove();
+
+    // Hapus baris dengan ID row-harga
+    $(`#row-harga-${row}`).remove();
+
+    // Hapus baris dengan ID collapse
+    $(`#collapse_${row}`).remove();
+
+    $(`#input-row-faktur-1`).val(decrement_row);
+
+    $('.rupiah').mask('000.000.000', { reverse: true });
+}
 
 	let on_submit_tambah_faktur = (e) => {
 		// e.preventDefault()
@@ -1118,6 +1236,23 @@
 
 		$(`#form-tambah-faktur`).submit()
 	}
+
+	function toggleCollapse(rowId) {
+    var collapseElement = document.getElementById('collapse_' + rowId);
+    var buttonIcon = document.querySelector('#accordion_' + rowId + ' > i.fa');
+
+    if (collapseElement.classList.contains('in')) {
+        collapseElement.classList.remove('in');
+        buttonIcon.classList.remove('fa-minus');
+        buttonIcon.classList.add('fa-plus');
+    } else {
+        collapseElement.classList.add('in');
+        buttonIcon.classList.remove('fa-plus');
+        buttonIcon.classList.add('fa-minus');
+    }
+}
+
+</script>
 </script>
 
 </div>

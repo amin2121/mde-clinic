@@ -844,6 +844,7 @@
 
 		let total_harga_beli = parseInt(jumlah_beli) * parseInt(hargaJual);
 		let valueLaba = parseInt(hargaJual) - parseInt(hargaAwal);
+		
 		$(`#laba-faktur-${row}`).val(valueLaba);
 		$(`#total_beli_${row}`).val(total_harga_beli);
 
@@ -867,6 +868,7 @@
 			let unMaskInputHargaAwal = $(`#harga-awal-faktur-${row}`).unmask();
 			let unMaskInputHargaJual = $(`#harga-jual-faktur-${row}`).unmask();
 			let unMaskInputLaba = $(`#laba-faktur-${row}`).unmask();
+			let unMaskInputppn = $(`#laba-faktur-${row}`).unmask();
 
 			let hargaAwal = $(`#harga-awal-faktur-${row}`).val();
 			let hargaJual = $(`#harga-jual-faktur-${row}`).val();
@@ -874,7 +876,8 @@
 			let jumlah_beli = $(`#jumlah-beli-faktur-${row}`).val();
 
 			let total_harga_beli = parseInt(jumlah_beli) * parseInt(hargaJual);
-			let valueLaba = parseInt(hargaJual) - parseInt(hargaAwal);
+			// let valueLaba = parseInt(hargaJual) - parseInt(hargaAwal);
+			let valueppn = parseInt(hargaAwal) *  parseInt(    /100)	
 
 			$(`#laba-faktur-${row}`).val(valueLaba);
 			$(`#total_beli_${row}`).val(total_harga_beli);

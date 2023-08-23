@@ -16,19 +16,6 @@ class M_master extends CI_Model {
 	{
 		$id_cabang = $this->session->userdata('id_cabang');
 
-		// if($id_barang == null) {
-		// 	return $this->db->query("
-		// 		SELECT * FROM apotek_barang
-		// 		WHERE nama_barang LIKE '%$key%'
-		// 		AND id_cabang = '$id_cabang'
-		// 		LIMIT 50
-		// 	")->result_array();
-		// }
-
-		// return $this->db->get_where($this->table_barang, ['id' => $id_barang, 'id_cabang' => $id_cabang])->row_array();
-
-		// $id_cabang = $this->session->userdata('id_cabang');
-
 		if($id_barang == null) {
 			return $this->db->query("
 				SELECT * FROM apotek_barang

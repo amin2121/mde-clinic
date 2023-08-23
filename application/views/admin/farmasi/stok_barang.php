@@ -55,7 +55,6 @@
 											<?php if($this->session->userdata('level') == 'Owner' || $this->session->userdata('level') == 'owner'): ?>
 											<th class="text-center">Laba</th>
 											<?php else: ?>
-
 											<?php endif; ?>
 											<th class="text-center">Stok</th>
 											<th class="text-center">Action</th>
@@ -109,15 +108,15 @@ $(document).ready((e) => {
 					for(const item of res.data) {
 						let laba = '';
 						<?php if($this->session->userdata('level') == 'Owner' || $this->session->userdata('level') == 'owner'): ?>
-							laba = `<td class="text-right"><b>Rp. </b>${NumberToMoney(item.laba)}</td>`
+							laba = `<td class="text-left"><b>Rp. </b>${NumberToMoney(item.laba)}</td>`
 						<?php endif; ?>
 
 						row += `
 							<tr>
 								<td class="text-center" width="70px">${item.kode_barang}</td>
 								<td class="text-center">${item.nama_barang}</td>
-								<td class="text-right"><b>Rp. </b>${NumberToMoney(item.harga_awal)}</td>
-								<td class="text-right"><b>Rp. </b>${NumberToMoney(item.harga_jual)}</td>
+									<td class="text-left"><b>Rp. </b>${NumberToMoney(item.harga_awal)}</td>
+								<td class="text-left"><b>Rp. </b>${NumberToMoney(item.harga_jual)}</td>
 								${laba}
 								<td class="text-center">${NumberToMoney(item.stok)}</td>
 								<td>

@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class M_faktur extends CI_Model {
+class M_faktur extends CI_Model
+{
 	protected $table_faktur = 'farmasi_faktur';
 	protected $table_faktur_detail = 'farmasi_faktur_detail';
 	protected $table_barang = 'farmasi_barang';
@@ -15,7 +16,7 @@ class M_faktur extends CI_Model {
 	// master barang
 	public function get_barang($id_barang = null, $key = '')
 	{
-		if($id_barang == null) {
+		if ($id_barang == null) {
 			return $this->db->query("
 				SELECT * FROM farmasi_barang
 				WHERE (nama_barang LIKE '%$key%' OR kode_barang LIKE '%$key%')
@@ -31,13 +32,13 @@ class M_faktur extends CI_Model {
 		return $this->db->query("
 			SELECT * FROM farmasi_faktur
 			ORDER BY id DESC
-			LIMIT 500
+			LIMIT 100
 		")->result_array();
 	}
 
 	public function cari_faktur_by_tanggal($tanggal = '')
 	{
-		if($tanggal != '') {
+		if ($tanggal != '') {
 			return $this->db->query("
 				SELECT
 					* 
@@ -46,7 +47,8 @@ class M_faktur extends CI_Model {
 				WHERE
 					tanggal = '$tanggal'
 					OR tanggal_pembayaran = '$tanggal'
-					LIMIT 500
+					ORDER BY id DESC
+					LIMIT 100
 			")->result_array();
 		}
 
@@ -68,36 +70,52 @@ class M_faktur extends CI_Model {
 		foreach ($detail_faktur['nama_barang'] as $key => $nama_barang) {
 
 			$data = [
-				'id_faktur'				=> $faktur_id,
-				'id_barang'				=> $detail_faktur['id_barang'][$key],
-				'nama_barang'			=> $nama_barang,
-				'kode_barang'			=> $detail_faktur['kode_barang'][$key],
-				'jumlah_beli'			=> $detail_faktur['jumlah_beli'][$key],
-				'laba'					=> $detail_faktur['laba'][$key],
-				'harga_awal'			=> $detail_faktur['harga_awal'][$key],
-				'harga_jual'			=> $detail_faktur['harga_jual'][$key],
-				'tanggal_kadaluarsa' 	=> $detail_faktur['tanggal_kadaluarsa'][$key],
-				'tanggal'				=> date('d-m-Y'),
-				'waktu'					=> date('H:i:s')
+				'id_faktur' => $faktur_id,
+				'id_barang' => $detail_faktur['id_barang'][$key],
+				'nama_barang' => $nama_barang,
+				'kode_barang' => $detail_faktur['kode_barang'][$key],
+				'laba_resep' => $detail_faktur['laba_resep'][$key],
+				'laba_up_apotek' => $detail_faktur['laba_up_apotek'][$key],
+				'harga_awal' => $detail_faktur['harga_awal'][$key],
+				'harga_jual' => $detail_faktur['harga_jual'][$key],
+				'harga_resep' => $detail_faktur['harga_resep'][$key],
+				'harga_up_apotek' => $detail_faktur['harga_up_apotek'][$key],
+				'jumlah_beli' => $detail_faktur['jumlah_beli'][$key],
+				'harga_awal' => $detail_faktur['harga_awal'][$key],
+				'harga_jual' => $detail_faktur['harga_jual'][$key],
+				'laba' => $detail_faktur['laba'][$key],
+				'tanggal_kadaluarsa' => $detail_faktur['tanggal_kadaluarsa'][$key],
+				'tanggal' => date('d-m-Y'),
+				'waktu' => date('H:i:s')
 			];
+			
+			$this->db->insert('farmasi_barang_detail', $data);
 
 			// update barang
 			$barang = $this->db->get_where($this->table_barang, ['id' => $detail_faktur['id_barang'][$key]])->row_array();
 			$data_barang = [
-				'harga_awal'			=> $detail_faktur['harga_awal'][$key],
-				'harga_jual'			=> $detail_faktur['harga_jual'][$key],
-				'stok'					=> ((int) $barang['stok'] + (int) $detail_faktur['jumlah_beli'][$key]),
-				'tanggal_kadaluarsa'	=> $detail_faktur['tanggal_kadaluarsa'][$key]
+
+				'laba_resep' => $detail_faktur['laba_resep'][$key],
+				'laba_up_apotek' => $detail_faktur['laba_up_apotek'][$key],
+				'harga_awal' => $detail_faktur['harga_awal'][$key],
+				'harga_jual' => $detail_faktur['harga_jual'][$key],
+				'harga_resep' => $detail_faktur['harga_resep'][$key],
+				'harga_up_apotek' => $detail_faktur['harga_up_apotek'][$key],
+				'harga_awal' => $detail_faktur['harga_awal'][$key],
+				'harga_jual' => $detail_faktur['harga_jual'][$key],
+				'laba' => $detail_faktur['laba'][$key],
+				'stok' => ((int) $barang['stok'] + (int) $detail_faktur['jumlah_beli'][$key]),
+				'tanggal_kadaluarsa' => $detail_faktur['tanggal_kadaluarsa'][$key]
 			];
 
 			$this->db->where('id', $detail_faktur['id_barang'][$key]);
 			$on_action_update_barang = $this->db->update($this->table_barang, $data_barang);
 			// update barang
-			
-			if($on_action_update_barang) {
+			if ($on_action_update_barang) {
 				// insert detail faktur
 				$result_on_insert_detail_faktur = $this->db->insert($this->table_faktur_detail, $data);
 			}
+
 		}
 
 		return $result_on_insert_detail_faktur;
@@ -125,14 +143,14 @@ class M_faktur extends CI_Model {
 			$data = ['stok' => $stok_decrease];
 
 			$this->db->where('id', $id_barang);
-			if($this->db->update('farmasi_barang', $data)) {
-				
+			if ($this->db->update('farmasi_barang', $data)) {
+
 				$this->db->where('id', $df['id']);
 				$result = $this->db->delete('farmasi_faktur_detail');
 			}
 		}
 
-		if($result) {
+		if ($result) {
 			$this->db->where('id', $id_faktur);
 			return $this->db->delete('farmasi_faktur');
 		}
@@ -141,7 +159,7 @@ class M_faktur extends CI_Model {
 
 	public function get_detail_faktur($id_faktur, $id_detail_faktur = null)
 	{
-		if($id_detail_faktur) {
+		if ($id_detail_faktur) {
 			return $this->db->query("
 				SELECT * FROM $this->table_faktur_detail
 				WHERE id_faktur = $id_faktur
@@ -158,20 +176,20 @@ class M_faktur extends CI_Model {
 	public function tambah_detail_faktur($data, $total_beli)
 	{
 		$barang = $this->db->get_where($this->table_barang, $data['id_barang']);
-		
-		$barangUpdate = [	
-			'stok'					=> (int) $data['jumlah_beli'] + (int) $barang['stok'],
-			'harga_awal'			=> $data['harga_awal'],
-			'harga_jual'			=> $data['harga_jual'],
-			'laba'					=> $data['laba'],
-			'tanggal_kadaluarsa'	=> $data['tanggal_kadaluarsa'],	
-			'updated_at'			=> date($this->config->item('log_date_format'))
+
+		$barangUpdate = [
+			'stok' => (int) $data['jumlah_beli'] + (int) $barang['stok'],
+			'harga_awal' => $data['harga_awal'],
+			'harga_jual' => $data['harga_jual'],
+			'laba' => $data['laba'],
+			'tanggal_kadaluarsa' => $data['tanggal_kadaluarsa'],
+			'updated_at' => date($this->config->item('log_date_format'))
 		];
 
-		 // update in table_barang
+		// update in table_barang
 		$this->db->where('id', $data['id_barang']);
 		if ($this->db->update($this->table_barang, $barangUpdate)) {
-		 	// update in table_faktur
+			// update in table_faktur
 			$faktur = $this->db->get_where($this->table_faktur, ['id' => $data['id_faktur']])->row_array();
 			$total_harga_beli = ['total_harga_beli' => (int) $total_beli + (int) $faktur['total_harga_beli']];
 
@@ -197,16 +215,16 @@ class M_faktur extends CI_Model {
 		$total_harga_beli_fix = $total_harga_beli - (int) $total_beli_before + (int) $total_beli_after;
 
 		$barang = [
-			'harga_awal'				=> $data['harga_awal'],
-			'harga_jual'				=> $data['harga_jual'],
-			'laba'						=> $data['laba'],
-			'tanggal_kadaluarsa'		=> $data['tanggal_kadaluarsa'],
+			'harga_awal' => $data['harga_awal'],
+			'harga_jual' => $data['harga_jual'],
+			'laba' => $data['laba'],
+			'tanggal_kadaluarsa' => $data['tanggal_kadaluarsa'],
 		];
 
 		$this->db->where('id', $id_faktur);
-		if($this->db->update($this->table_faktur, ['total_harga_beli' => $total_harga_beli_fix])) {
+		if ($this->db->update($this->table_faktur, ['total_harga_beli' => $total_harga_beli_fix])) {
 			$this->db->where('id', $data['id_barang']);
-			if($this->db->update($this->table_barang, $barang)) {
+			if ($this->db->update($this->table_barang, $barang)) {
 				$this->db->where('id', $id_detail_faktur);
 				return $this->db->update($this->table_faktur_detail, $data);
 			}
@@ -234,10 +252,10 @@ class M_faktur extends CI_Model {
 		$decrease_stok = (int) $barang['stok'] - (int) $detail_faktur['jumlah_beli'];
 
 		$this->db->where('id', $id_faktur);
-		if($this->db->update($this->table_faktur, ['total_harga_beli' => $total_harga_beli_fix])) {
+		if ($this->db->update($this->table_faktur, ['total_harga_beli' => $total_harga_beli_fix])) {
 			// update stok in table barang
 			$this->db->where('id', $detail_faktur['id_barang']);
-			if($this->db->update($this->table_barang, ['stok' => $decrease_stok])) {
+			if ($this->db->update($this->table_barang, ['stok' => $decrease_stok])) {
 				// delete detail-faktur
 				$this->db->where('id', $id_detail_faktur);
 				return $this->db->delete($this->table_faktur_detail);

@@ -15,8 +15,8 @@ class Pasien extends CI_Controller {
 
 		// $first_kode = 'RM.000001';
 		$this->db->select('RIGHT(pasien.no_rm,6) as kode', FALSE);
-    $this->db->order_by('no_rm','DESC');
     $this->db->limit(1);
+    $this->db->order_by('no_rm','DESC');
     $query = $this->db->get('pasien');      //cek dulu apakah ada sudah ada kode di tabel.
     if($query->num_rows() <> 0){
      //jika kode ternyata sudah ada.
@@ -69,6 +69,7 @@ class Pasien extends CI_Controller {
 				'alergi' => $this->input->post('alergi'),
 				'status_operasi' => $this->input->post('status_operasi'),
 				'umur' => $this->input->post('umur'),
+				'berat_badan' => $this->input->post('berat_badan'),
 				'status_pasien' => 'BARU'
 				);
 		}else{
@@ -87,7 +88,8 @@ class Pasien extends CI_Controller {
 				'golongan_darah' => $this->input->post('golongan_darah'),
 				'alergi' => $this->input->post('alergi'),
 				'status_operasi' => $this->input->post('status_operasi'),
-				'umur' => $this->input->post('umur')
+				'umur' => $this->input->post('umur'),
+				'berat_badan' => $this->input->post('berat_badan')
 				);
 			}else{
 				$object = array(
@@ -105,7 +107,8 @@ class Pasien extends CI_Controller {
 				'golongan_darah' => $this->input->post('golongan_darah'),
 				'alergi' => $this->input->post('alergi'),
 				'status_operasi' => $this->input->post('status_operasi'),
-				'umur' => $this->input->post('umur')
+				'umur' => $this->input->post('umur'),
+				'berat_badan' => $this->input->post('berat_badan')
 				);
 			}
 		}

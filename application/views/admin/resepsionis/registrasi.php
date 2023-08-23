@@ -46,7 +46,7 @@
   											<input type="text" id="nama_pasien" name="nama_pasien" class="form-control" placeholder="Nama Pasien" readonly>
 												<input type="hidden" id="id_pasien" name="id_pasien" class="form-control" readonly>
   											<span class="input-group-btn">
-  												<button class="btn bg-primary" onclick="modal_pasien(); get_pasien();" type="button"><i class="fa fa-search position-left"></i> Cari</button>
+  												<button class="btn bg-primary" onclick="modal_pasien(); get_pasien(); onchange="klik_poli(this.value);" type="button"><i class="fa fa-search position-left"></i> Cari</button>
   											</span>
   										</div>
     								</div>
@@ -105,15 +105,15 @@
 											<label for="" class="control-label"><b>Tanggal Datang</b></label>
 											<input required name="tanggal_datang" type="text" class="form-control" value="<?php echo date('d-m-Y'); ?>" readonly>
 										</div>
-                    <div class="form-group">
-                      <label class="control-label"><b>Poli</b></label>
-                      <select class="select-search-primary" data-placeholder="Pilih Poli" name="id_poli" onchange="klik_poli(this.value);">
-												<option></option>
-												<?php foreach ($poli as $p): ?>
-													<option value="<?php echo $p['poli_id']; ?>"><?php echo $p['poli_nama']; ?></option>
-												<?php endforeach; ?>
-                      </select>
-                    </div>
+										<div class="form-group">
+						<label class="control-label"><b>Poli</b></label>
+						<select class="select-search-primary" data-placeholder="Pilih Poli" name="id_poli" onchange="klik_poli(this.value);">
+							<?php foreach ($poli as $p): ?>
+								<option selected value="<?php echo $p['poli_id']; ?>"><?php echo $p['poli_nama']; ?></option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+
                     <div class="form-group">
                       <label for="" class="control-label"><b>Dokter</b></label>
 											<select class="select-search-warning" data-placeholder="Pilih Dokter" name="id_dokter" id="input_id_dokter">
@@ -321,6 +321,12 @@
 		        }
 		    });
 	}
+	
+	window.addEventListener('load', function() {
+        var selectedValue = document.querySelector('select[name="id_poli"]').value;
+        klik_poli(selectedValue);
+    });
+	
 </script>
 
 </div>

@@ -187,12 +187,12 @@
 								<td class="text-center">${item.no_transaksi}</td>
 								<td class="text-center">${item.nama_pelanggan}</td>
 								<td class="text-center">${item.nama_kasir}</td>
-								<td class="text-center"><b>Rp. </b>${NumberToMoney(item.nilai_transaksi)}</td>
-								<td class="text-center"><b>Rp. </b>${NumberToMoney(item.dibayar)}</td>
-								<td class="text-center"><b>Rp. </b>${NumberToMoney(item.kembali)}</td>
+								<td class="text-left"><b>Rp. </b>${NumberToMoney(item.nilai_transaksi)}</td>
+								<td class="text-left"><b>Rp. </b>${NumberToMoney(item.dibayar)}</td>
+								<td class="text-left"><b>Rp. </b>${NumberToMoney(item.kembali)}</td>
 								<td class="text-center">${item.tanggal}<br>${item.waktu}</td>
 								<td class="text-center">
-                  <button type="button" class="btn btn-warning btn-xs" onclick="popup_detail_transaksi(${item.id});"><i class="icon-eye position-left"></i> Detail</button>
+                  					<button type="button" class="btn btn-warning btn-xs" onclick="popup_detail_transaksi(${item.id});"><i class="icon-eye position-left"></i> Detail</button>
 									<button type="button" class="btn btn-primary btn-xs" onclick="window.open('<?php echo base_url(); ?>farmasi/kasir/cetak_struk/${item.id}', '_blank','location=yes,height=570,width=520,scrollbars=yes,status=yes');"><i class="icon-printer2 position-left"></i> Print </button>
 									<button type="button" class="btn btn-danger btn-xs" onclick="popup_hapus_transaksi(${item.id});"><i class="icon-trash position-left"></i> Hapus</button>
 								</td>

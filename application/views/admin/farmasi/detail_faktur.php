@@ -63,7 +63,8 @@ $('.diagnosa').DataTable();
 														<th class="text-center">Nama Barang</th>
 														<th class="text-center">Harga Awal</th>
 														<th class="text-center">Harga Jual</th>
-														<th class="text-center">Laba</th>
+														<th class="text-center">Harga Resep</th>
+														<th class="text-center">Harga Up Apotek</th>
 														<th class="text-center">Jumlah Beli</th>
 														<th class="text-center">Tanggal Kadaluarsa</th>
 													</tr>
@@ -78,9 +79,10 @@ $('.diagnosa').DataTable();
 															<tr>
 																<td class="text-center"><?= $df['kode_barang'] ?></td>
 																<td class="text-center"><?= $df['nama_barang'] ?></td>
-																<td class="text-right"><b>Rp. </b><?= number_format($df['harga_awal'],2,',','.'); ?></td>
-																<td class="text-right"><b>Rp. </b><?= number_format($df['harga_jual'],2,',','.'); ?></td>
-																<td class="text-right"><b>Rp. </b><?= number_format($df['laba'],2,',','.');  ?></td>
+																<td class="text-left"><b>Rp. </b><?= number_format($df['harga_awal'],2,',','.'); ?></td>
+																<td class="text-left"><b>Rp. </b><?= number_format($df['harga_jual'],2,',','.'); ?></td>
+																<td class="text-left"><b>Rp. </b><?= number_format($df['harga_resep'],2,',','.'); ?></td>
+																<td class="text-left"><b>Rp. </b><?= number_format($df['harga_up_apotek'],2,',','.'); ?></td>
 																<td class="text-center"><?= $df['jumlah_beli'] ?></td>
 																<td class="text-center"><?= ($df['tanggal_kadaluarsa'] == "" || $df['tanggal_kadaluarsa'] == 0) ? 'Tidak Ada Tanggal Kadaluarsa' : date('d M, Y', strtotime($df['tanggal_kadaluarsa'])) ?></td>
 															</tr>

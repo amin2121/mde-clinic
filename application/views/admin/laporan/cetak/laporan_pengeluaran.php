@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -125,8 +125,7 @@
             <td style="text-align:center;"><?php echo $no; ?></td>
             <td style="text-align:center;"><?php echo $r['tanggal']; ?></td>
             <td style="text-align:center;">
-              <?php
-              if ($r['status'] == 'Pengeluaran') {
+              <?php if ($r['status'] == 'Pengeluaran') {
                 echo $r['nama_pemasukan'];
               }elseif ($r['status'] == 'Faktur') {
                 echo "Faktur Tanggal ".$r['nama_pemasukan'];

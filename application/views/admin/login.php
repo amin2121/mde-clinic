@@ -53,17 +53,11 @@
 
 						<div class="form-group has-feedback has-feedback-left">
 							<input type="text" class="form-control" name="username" placeholder="Username">
+							<input type="hidden" class="form-control" name="shift" value="Owner_utama" >
 							<div class="form-control-feedback">
 								<i class="icon-user text-muted"></i>
 							</div>
 						</div>
-
-<!-- 						<div class="form-group has-feedback has-feedback-left">
-							<input type="text" class="form-control" name="password" placeholder="Password">
-							<div class="form-control-feedback">
-								<i class="icon-lock2 text-muted"></i>
-							</div>
-						</div> -->
 
 						<div class="form-group has-feedback has-feedback-left">
 							<div class="input-group">

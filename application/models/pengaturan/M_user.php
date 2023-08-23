@@ -15,13 +15,22 @@ class M_user extends CI_Model {
 
 	public function get_pengaturan_user()
 	{
-		return $this->db->query("
+		$sql= $this->db->query("
 			SELECT * FROM pengaturan_user
-		")->result_array();
+		");
+		return $sql->result_array();
+		
 	}
 
 	public function get_level_result(){
-		return $this->db->get('pengaturan_user_level')->result_array();
+		// return $this->db->get('pengaturan_user_level')->result_array();
+		
+		
+		$sql= $this->db->query("
+			SELECT * FROM pengaturan_user_level
+		");
+		return $sql->result_array();
+// var_dump($sql);
 	}
 
 	public function get_pegawai($search){

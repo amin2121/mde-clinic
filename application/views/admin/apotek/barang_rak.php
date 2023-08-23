@@ -21,7 +21,7 @@
 
 	<div class="panel panel-flat border-top-success border-top-lg">
 		<div class="panel-heading">
-			<h6 class="panel-title"><?= $title ?></h6>
+		<h6 class="panel-title"><?= $title ?></h6>
 		</div>
 
 		<div class="panel-body">
@@ -56,7 +56,7 @@
 												<tr style="cursor: pointer" id="row-barang-rak-<?= $key + 1 ?>">
 													<td>
 														<input type="text" name="id_barang[]" value="<?= $barang['id_barang'] ?>" id="id-barang-<?= $key + 1 ?>" hidden="">
-														<input type="text" name="id_apotek[]" class="id_apotek" value="<?= $barang['id_apotek'] ?>" id="id-apotek-<?= $key + 1 ?>" hidden="">
+														<input type="text" name="id_apotek[]" class="id_apotek" value="<?= $barang['id'] ?>" id="id-apotek-<?= $key + 1 ?>" hidden="">
 
 														<!-- cari barang -->
 														<div class="form-group">
@@ -136,7 +136,7 @@
 								</div>
 							<!-- /Modal Barang -->
 
-							<button class="btn btn-md btn-icon btn-info" type="button" onclick="tambah_baris()" style="margin-top: 1em;"><i class="fa fa-plus position-left"></i> Tambah</button>
+							<!-- <button class="btn btn-md btn-icon btn-info" type="button" onclick="tambah_baris()" style="margin-top: 1em;"><i class="fa fa-plus position-left"></i> Tambah</button> -->
 
 							<div class="form-group" style="margin-top: 4rem;">
 								<div class="col-lg-12"><button class="btn btn-block btn-lg bg-success-600" type="submit"><i class="icon-floppy-disk position-left"></i> Simpan</button></div>
@@ -253,7 +253,7 @@
 				<td>
 
 					<input type="text" name="id_barang[]" value="${res.data.id_barang}" id="id-barang-${index}" hidden>
-					<input type="text" name="id_apotek[]" value="${res.data.id_apotek}" id="id-apotek-${index}" hidden>
+					<input type="text" name="id_apotek[]" value="${res.data.id}" id="id-apotek-${index}" hidden>
 
 					<div class="form-group">
 						<input type="text" class="form-control" value="${res.data.nama_barang}" placeholder="Cari Barang Anda.." readonly id="search-barang-${index}" name="nama_barang[]">

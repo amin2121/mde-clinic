@@ -262,7 +262,6 @@
 
 										</ul>
 									</div>
-
 									<div class="tab-pane" id="basic-justified-tab2">
 										<form action="<?php echo base_url('resepsionis/Pasien/insertPasien') ?>" method="post">
 											<div class="row">
@@ -286,6 +285,10 @@
 												<div class="form-group">
 													<label class="control-label"><b>Umur</b></label>
 													<input required name="umur" readonly type="text" id="umur" placeholder="Umur" class="form-control">
+												</div>
+												<div class="form-group">
+													<label class="control-label"><b>berat badan</b></label>
+													<input required name="berat_badan"  type="text" id="berat_badan" placeholder="berat badan" class="form-control">
 												</div>
 												<div class="form-group">
 													<label class="control-label"><b>Pekerjaan</b></label>

@@ -18626,7 +18626,6 @@ thead .htCollapseButton:after {
   margin-bottom: 0;
 }
 .login-container .page-container .nav-tabs.nav-justified > li > a {
-  border-top: 0!important;
   padding-left: 15px;
   padding-right: 15px;
   background-color: #f5f5f5;
@@ -18650,9 +18649,6 @@ thead .htCollapseButton:after {
   }
   .login-container .page-container .nav-tabs.nav-justified:before {
     content: none;
-  }
-  .login-container .page-container .nav-tabs.nav-justified > li > a {
-    border-width: 0!important;
   }
 }
 .login-container .footer {

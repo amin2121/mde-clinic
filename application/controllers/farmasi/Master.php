@@ -46,9 +46,9 @@ class Master extends CI_Controller {
 	public function tambah_jenis_barang()
 	{
 		$data = [
+			'waktu'				=> date('H:i:s'),
 			'nama_jenis_barang'	=> $this->input->post('nama_jenis_barang'),
 			'tanggal'			=> date('Y-m-d'),
-			'waktu'				=> date('H:i:s'),
 			'created_at'		=> date($this->config->item('log_date_format'))
 		];
 

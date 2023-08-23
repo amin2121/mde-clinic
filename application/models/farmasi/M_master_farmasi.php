@@ -67,23 +67,21 @@ class M_master_farmasi extends CI_Model {
 		if($id_obat !== null) {
 			return $this->db->query("
 				SELECT farmasi_barang.*, farmasi_jenis_barang.nama_jenis_barang
-				FROM farmasi_barang LEFT JOIN farmasi_jenis_barang
-				ON farmasi_barang.id_jenis_barang = farmasi_jenis_barang.id
-				WHERE farmasi_barang.status_barang = 'obat'
-				AND farmasi_barang.id = $id_obat
+				FROM farmasi_barang
+				LEFT JOIN farmasi_jenis_barang ON farmasi_barang.id_jenis_barang = farmasi_jenis_barang.id
+				WHERE farmasi_barang.id = $id_obat
 				AND NOT farmasi_barang.stok = 0
 			")->row_array();
 		}
-
+	
 		return $this->db->query("
 				SELECT farmasi_barang.*, farmasi_jenis_barang.nama_jenis_barang
-				FROM farmasi_barang LEFT JOIN farmasi_jenis_barang
-				ON farmasi_barang.id_jenis_barang = farmasi_jenis_barang.id
-				WHERE farmasi_barang.status_barang = 'obat'
-				AND NOT farmasi_barang.stok = 0
+				FROM farmasi_barang
+				LEFT JOIN farmasi_jenis_barang ON farmasi_barang.id_jenis_barang = farmasi_jenis_barang.id
+				WHERE NOT farmasi_barang.stok = 0
 			")->result_array();
 	}
-	// end master obat
+		// end master obat
 
 	public function tambah_stok_opname()
 	{

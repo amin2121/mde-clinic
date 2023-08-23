@@ -80,7 +80,8 @@
                     <div class="col-md-12">
                         <div class="logo text-center">
                             <h1>MDE</h1>
-                            <span><?php echo $this->session->userdata('nama_cabang'); ?></span>
+                            <span><?php echo $this->session->userdata('nama_cabang'); ?>
+                        </span>
                         </div>
                     </div>
                 </div>

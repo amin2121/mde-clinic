@@ -52,8 +52,11 @@ class Kasir extends CI_Controller {
 		$transaksi = [
 			'id_cabang' 		=> $this->session->userdata('id_cabang'),
 			'id_kasir'			=> $this->session->userdata('id_user'),
+			'shift' 			=> $this->session->userdata('shift'),
 			'no_transaksi'		=> $this->kasir->create_code(),
 			'nilai_transaksi'	=> $this->input->post('nilai_transaksi'),
+			'biaya_racik'		=> $this->input->post('biaya_racik'),
+			'embalase'			=> $this->input->post('embalase'),
 			'total_laba'		=> $this->input->post('total_laba'),
 			'dibayar'			=> $this->input->post('dibayar'),
 			'kembali'			=> $this->input->post('kembali'),
@@ -71,6 +74,7 @@ class Kasir extends CI_Controller {
 		];
 
 		$detail_transaksi = [
+			'shift' 			=> $this->session->userdata('shift'),
 			'id_kasir'			=> $this->session->userdata('id_user'),
 			'total_harga_beli'	=> $this->input->post('total_harga_beli'),
 			'id_barang'			=> $this->input->post('id_barang'),
@@ -155,8 +159,8 @@ class Kasir extends CI_Controller {
 
 		$this->load->view('admin/apotek/struk_penjualan', $data);
 	}
-
 	/**
+
 	 * API
 	 */
 	public function get_resep_obat_api()
@@ -197,6 +201,7 @@ class Kasir extends CI_Controller {
 		$action_get_obat = $this->kasir->get_obat($id_resep_obat);
 
 		$result = [];
+		// vardump($result); die;
 		if($action_get_obat) {
 			$result = [
 				'status'		=> true,
@@ -238,6 +243,14 @@ class Kasir extends CI_Controller {
 
 		echo json_encode($data);
 	}
+	public function pasien_result(){
+		$search = $this->input->post('search');
+		$data = $this->kasir->pasien_result($search);
+
+		echo json_encode($data);
+	}
+
+
 
 }
 

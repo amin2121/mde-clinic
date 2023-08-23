@@ -10,7 +10,7 @@ class M_riwayat_kasir_umum extends CI_Model {
 
 	public function get_riwayat_kasir_umum($tanggal_dari = '', $tanggal_sampai = '')
 	{
-		if($tanggal_dari == '' && $tanggal_sampai == '') {
+		if ($tanggal_dari == '' && $tanggal_sampai == '') {
 			return $this->db->query("
 				SELECT
 					a.*,
@@ -18,26 +18,23 @@ class M_riwayat_kasir_umum extends CI_Model {
 				FROM
 					apotek_penjualan a
 				LEFT JOIN data_pegawai b ON a.id_kasir = b.pegawai_id
+				ORDER BY STR_TO_DATE(a.tanggal, '%d-%m-%Y') DESC
 			")->result_array();
-
 		} else {
-
 			return $this->db->query("
 				SELECT
 					a.*,
 					b.nama
 				FROM
 					apotek_penjualan a
-					LEFT JOIN data_pegawai b ON a.id_kasir = b.pegawai_id
-				WHERE STR_TO_DATE(a.tanggal,'%d-%m-%Y') >= STR_TO_DATE('$tanggal_dari','%d-%m-%Y')
-					AND STR_TO_DATE(a.tanggal,'%d-%m-%Y') <= STR_TO_DATE('$tanggal_sampai','%d-%m-%Y')
-				ORDER BY
-					STR_TO_DATE( a.tanggal, '%d-%m-%Y' ) DESC
+				LEFT JOIN data_pegawai b ON a.id_kasir = b.pegawai_id
+				WHERE STR_TO_DATE(a.tanggal, '%d-%m-%Y') >= STR_TO_DATE('$tanggal_dari', '%d-%m-%Y')
+					AND STR_TO_DATE(a.tanggal, '%d-%m-%Y') <= STR_TO_DATE('$tanggal_sampai', '%d-%m-%Y')
+				ORDER BY STR_TO_DATE(a.tanggal, '%d-%m-%Y') DESC
 			")->result_array();
-
 		}
 	}
-
+	
 	public function get_detail_riwayat_kasir_umum($id_penjualan = '')
 	{
 		return $this->db->query("

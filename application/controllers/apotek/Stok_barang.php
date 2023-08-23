@@ -13,7 +13,7 @@ class Stok_barang extends CI_Controller {
 	public function index()
 	{
 		if (!$this->session->userdata('logged_in')) {
-    		redirect('auth');
+     		redirect('auth');
     	}
 
 		$data['title'] = 'Master Stok Barang';

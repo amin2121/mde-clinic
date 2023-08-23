@@ -114,7 +114,7 @@
                     <li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light"><i class="icon-arrow-left-circle ti-menu"></i></a></li>
                 </ul>
             </div>
-            <!-- /.navbar-header -->
+            <!-- /.navbar-header -->    
             <!-- /.navbar-top-links -->
             <!-- /.navbar-static-side -->
         </nav>
@@ -126,7 +126,19 @@
                         <div><img src="<?php echo base_url(); ?>storage/avatar.png" alt="user-img" class="img-circle"></div>
                         <a href="#" class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $this->session->userdata('nama'); ?> <span class="caret"></span></a>
                         <ul class="dropdown-menu animated flipInY">
-                            <li><a href="<?php echo base_url(); ?>admin/auth/keluar" onclick="return confirm('Apakah anda ingin keluar aplikasi?')"><i class="fa fa-power-off"></i> Logout</a></li>
+                        <?php
+                            // Ambil informasi shift dari sesi pengguna
+                            $shift = $this->session->userdata('shift');
+
+                            if (!$shift) {
+                                // Jika shift tidak ada, tampilkan Logout 2
+                                echo '<li><a href="' . base_url() . 'admin/auth/keluar_apotek" onclick="return confirm(\'Apakah anda ingin keluar aplikasi?\')"><i class="fa fa-power-off"></i> Logout apotek</a></li>';
+                            } else {
+                                // Jika shift ada, tampilkan Logout
+                                echo '<li><a href="' . base_url() . 'admin/auth/keluar" onclick="return confirm(\'Apakah anda ingin keluar aplikasi?\')"><i class="fa fa-power-off"></i> Logout</a></li>';
+                            }
+                            ?>
+
                         </ul>
                     </div>
                 </div>

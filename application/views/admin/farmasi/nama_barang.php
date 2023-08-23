@@ -189,8 +189,8 @@ function get_barang() {
 							<td class="text-center">${item.nama_barang}</td>
 							<td class="text-center">${item.stok_minimal == null ? 0 : item.stok_minimal}</td>
 							<td class="text-center">${tanggal}</td>
-							<td class="text-right"><b>Rp. </b>${NumberToMoney(item.harga_awal)}</td>
-							<td class="text-right"><b>Rp. </b>${NumberToMoney(item.harga_jual)}</td>
+							<td class="text-left"><b>Rp. </b>${NumberToMoney(item.harga_awal)}</td>
+							<td class="text-left"><b>Rp. </b>${NumberToMoney(item.harga_jual)}</td>
 							<td>
 								<div class="text-center">
 									<a href="#" class="btn btn-md btn-icon btn-primary" data-toggle="modal" data-target="#modal_edit_barang_${item.id}"><i class="icon-pencil position-left"></i> Edit</a>

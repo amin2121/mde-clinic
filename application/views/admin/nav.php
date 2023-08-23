@@ -1,8 +1,9 @@
 <!-- Main navbar -->
 	<div class="navbar navbar-inverse bg-success">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="#"><img src="<?php echo base_url(); ?>assets/images/logo_light.png" alt=""></a>
-
+			<a class="navbar-brand" href="#" style="font-family: arial;">
+				<b>MDE</b> <span style="font-weight: 600;">CLINIC</span>
+			</a>
 			<ul class="nav navbar-nav pull-right visible-xs-block">
 				<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
 			</ul>
@@ -159,6 +160,19 @@
 
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li><a href="<?php echo base_url(); ?>portal"><i class="icon-grid position-left"></i> Portal</a></li>
+						<?php
+							// Ambil informasi shift dari sesi pengguna
+							$shift = $this->session->userdata('shift');
+
+							if ($shift == 'Owner') {
+								// Jika shift tidak ada, tampilkan Logout 2
+								echo '<li><a href="' . base_url() . 'auth/keluar_apotek" onclick="return confirm(\'Apakah anda ingin keluar aplikasi?\')"><i class="fa fa-power-off"></i> Logout</a></li>';
+							} else {
+								echo '<li><a href="' . base_url() . 'auth/keluar" onclick="return confirm(\'Apakah anda ingin keluar aplikasi?\')"><i class="fa fa-power-off"></i> Logout</a></li>' ;
+								// Jika shift ada, tampilkan Logout
+							}
+							?>
+
 					</ul>
 				</li>
 			</ul>

@@ -74,8 +74,11 @@
 															<th class="text-center">Nilai Transaksi</th>
 															<th class="text-center">Laba</th>
 															<th class="text-center">Dibayar</th>
-															<th class="text-center">Tanggal & Waktu</th>
-															<th class="text-center">Aksi</th>
+															<th class="text-center">Tanggal & Waktu</th>						
+															<?php if($this->session->userdata('level') != 'Spv'): ?>
+																<th class="text-center">Aksi</th>
+															<?php endif; ?>
+
 														</tr>
 													</thead>
 													<tbody>
@@ -162,16 +165,11 @@ function get_riwayat_kasir_umum() {
 
 			if(res.status) {
 				let i = 0;
-				for(const item of res.data) {
-					get_detail_riwayat_kasir_umum(item.id);
-					row += 	`
-						<tr>
-							<td class="text-center">${item.no_transaksi}</td>
-							<td class="text-center">${item.nama}</td>
-							<td class="text-center"><b>Rp. </b>${NumberToMoney(item.nilai_transaksi)}</td>
-							<td class="text-center"><b>Rp. </b>${NumberToMoney(item.total_laba)}</td>
-							<td class="text-center"><b>Rp. </b>${NumberToMoney(item.dibayar)}</td>
-							<td class="text-center">${item.tanggal} ${item.waktu}</td>
+				for(const item of res.data) {	
+					
+					let aksi ='';
+					<?php if($this->session->userdata('level') != 'Spv'): ?>
+							aksi = `
 							<td>
 								<div class="text-center">
 									<button type="button" class="btn btn-sm btn-icon btn-success" onclick="print_struk_kasir_umum(${item.id})"><i class="icon-printer2 position-left"></i> Print</button>
@@ -237,6 +235,22 @@ function get_riwayat_kasir_umum() {
 								</div>
 								<!-- /Modal Detail Kasir Umum -->
 							</td>
+							`
+					<?php endif; ?>
+
+
+
+
+					get_detail_riwayat_kasir_umum(item.id);
+					row += 	`
+						<tr>
+							<td class="text-center">${item.no_transaksi}</td>
+							<td class="text-center">${item.nama}</td>
+							<td class="text-center"><b>Rp. </b>${NumberToMoney(item.nilai_transaksi)}</td>
+							<td class="text-center"><b>Rp. </b>${NumberToMoney(item.total_laba)}</td>
+							<td class="text-center"><b>Rp. </b>${NumberToMoney(item.dibayar)}</td>
+							<td class="text-center">${item.tanggal} ${item.waktu}</td>
+							${aksi}
 						</tr>
 					`;
 

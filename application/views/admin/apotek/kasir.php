@@ -78,6 +78,8 @@
 											<tr>
 												<th>Qty</th>
 												<th>Nama Barang</th>
+												<th>Nama Barang</th>
+												<th>Nama Barang</th>
 												<th>Kode Barang</th>
 												<th>Harga</th>
 												<th>SubTotal</th>
@@ -149,7 +151,7 @@
 																</div>
 
 																<div class="modal-footer">
-																	<button class="btn btn-link" id="btn_batal_bayar" data-dismiss="modal"><i class="icon-cross"></i> Batal</button>
+																<button class="btn btn-link" id="btn_batal_bayar" data-dismiss="modal"><i class="icon-cross"></i> Batal</button>
 																	<button class="btn btn-success" type="button" id="btn_proses_bayar" disabled><i class="icon-floppy-disk position-left"></i> Proses</button>
 																</div>
 															</div>

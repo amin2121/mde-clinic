@@ -11,6 +11,7 @@ class User extends CI_Controller {
 		$data['title'] = 'User';
 		$data['menu'] = 'pengaturan';
 		$data['level'] = $this->user->get_level_result();
+		// var_dump($data); die;
 		$data['pengaturan_user'] = $this->user->get_pengaturan_user();
 		$this->load->view('admin/pengaturan/user', $data);
 	}
@@ -36,8 +37,9 @@ class User extends CI_Controller {
 	}
 
 	public function tambah_user(){
-		$id_level = $this->input->post('id_level');
+		$id_level = $this->input->post('level');
 		$level = $this->db->get_where('pengaturan_user_level', ['id' => $id_level])->row_array()['user_level'];
+		// var_dump($level); die ;
 
 		$data = [
 			'id_pegawai'		=> $this->input->post('id_pegawai'),
@@ -47,7 +49,7 @@ class User extends CI_Controller {
 			'level'				=> $level,
 			'id_level' 			=> $id_level,
 		];
-
+// var_dump($data); die;
 		if($this->user->tambah_user($data)) {
 			$this->session->set_flashdata('message', 'User Berhasil <span class="text-semibold">Ditambahkan</span>');
 			$this->session->set_flashdata('status', 'success');
@@ -61,7 +63,7 @@ class User extends CI_Controller {
 
 	public function ubah_user()
 	{
-		$id_level = $this->input->post('id_level');
+		$id_level = $this->input->post('level');
 		$level = $this->db->get_where('pengaturan_user_level', ['id' => $id_level])->row_array()['user_level'];
 
 		$data = [

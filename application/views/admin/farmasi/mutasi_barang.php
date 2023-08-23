@@ -285,7 +285,7 @@
 								<td class="text-center">${++i}</td>
 								<td class="text-center">${item.kode_mutasi_barang}</td>
 								<td class="text-center">${item.nama_cabang_kirim}</td>
-								<td class="text-center"><b>Rp.</b> ${NumberToMoney(item.total_harga_kirim)}</td>
+								<td class="text-left"><b>Rp.</b> ${NumberToMoney(item.total_harga_kirim)}</td>
 								<td class="text-center">
 									<span><i class="icon-calendar" style="margin-right: 5px !important;"></i> ${item.tanggal} ${item.waktu}</span>
 								</td>

@@ -62,6 +62,7 @@ class Rak extends CI_Controller {
 		}
 	}
 
+	
 	public function get_rak_ajax()
 	{
 		$search = $this->input->post('search');

@@ -152,6 +152,10 @@
                       <input required name="umur" readonly type="text" id="umur" value="<?php echo $row['umur']; ?>" class="form-control">
                     </div>
                     <div class="form-group">
+                      <label class="control-label"><b>Berat badan</b></label>
+                      <input required name="berat_badan" readonly type="text" id="berat_badan" value="<?php echo $row['berat_badan']; ?>" class="form-control">
+                    </div>
+                    <div class="form-group">
                       <label class="control-label"><b>Pekerjaan</b></label>
                       <input required name="pekerjaan" type="text" value="<?php echo $row['pekerjaan']; ?>" class="form-control">
                     </div>

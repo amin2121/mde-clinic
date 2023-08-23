@@ -25,7 +25,6 @@ class M_stok extends CI_Model {
 	public function get_stok_barang($search = '')
 	{
 		$id_cabang = $this->session->userdata('id_cabang');
-
 		return $this->db->query("
 			SELECT 
 				a.id,
@@ -36,25 +35,14 @@ class M_stok extends CI_Model {
 				a.harga_jual,
 				a.laba,
 				a.tanggal_kadaluarsa,
-				IFNULL(b.nama_supplier, '') as supplier
+				'' as supplier
 			FROM apotek_barang a
-			JOIN (
-				SELECT 
-					a.id,
-					a.id_barang,
-					c.nama_supplier
-				FROM farmasi_faktur_detail a
-				LEFT JOIN farmasi_faktur b ON a.id_faktur = b.id
-				JOIN farmasi_supplier c ON b.id_supplier = c.id
-				GROUP BY c.nama_supplier
-				ORDER BY a.id DESC
-			) b ON a.id_barang = b.id_barang
 			WHERE (a.nama_barang LIKE '%$search%' OR a.kode_barang LIKE '%$search%')
-			AND a.id_cabang = $id_cabang
-			LIMIT 50
+			AND a.id_cabang = 3
+			ORDER BY a.id ASC
 		")->result_array();
 	}
-
+		
 	public function ubah_tanggal_kadaluarsa($data, $id_barang)
 	{
 		$id_cabang = $this->session->userdata('id_cabang');

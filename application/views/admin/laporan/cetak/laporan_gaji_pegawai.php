@@ -96,7 +96,7 @@
                         $hitung_not = ($r['gaji'] * (10 / 100) * $not);
                         $potongan_telat = $controller->cek_potongan_telat($r['pegawai_id'], $tgl_dari, $tgl_sampai);
                     ?>
-                        <td style="text-align:right;">Rp. <?php echo number_format($r['potongan'] + $potongan_telat['potongan_telat']); ?></td>
+                        <td style="text-align:right;">Rp. <?php echo number_format($r['potongan'] + $potongan_telat ['potongan_telat']); ?></td>
                         <td style="text-align:right;">Rp. <?php echo number_format($r['jaga']); ?></td>
                         <?php
                         ?>

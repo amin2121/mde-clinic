@@ -120,12 +120,12 @@ class Mutasi_barang extends CI_Controller {
 		$id_farmasi_mutasi_barang = $this->db->insert_id();
 
 		if($this->model->tambah_mutasi_barang($id_farmasi_mutasi_barang)) {
-			$this->session->set_flashdata('message', 'Mutasi Barang Berhasil <span class="text-semibold">Ditambahkan</span>');
-			$this->session->set_flashdata('status', 'success');
-			redirect('farmasi/mutasi_barang');
-		} else {
 			$this->session->set_flashdata('message', 'Mutasi Barang Gagal <span class="text-semibold">Ditambahkan</span>');
 			$this->session->set_flashdata('status', 'danger');
+			redirect('farmasi/mutasi_barang');
+		} else {
+			$this->session->set_flashdata('message', 'Mutasi Barang Berhasil <span class="text-semibold">Ditambahkan</span>');
+			$this->session->set_flashdata('status', 'success');
 			redirect('farmasi/mutasi_barang');
 		}
 	}

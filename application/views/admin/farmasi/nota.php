@@ -28,11 +28,11 @@
   }
   </style>
   <body class="body">
-    <p style="font-size: 10px; text-align:center;">
-      <b style="font-size: 12px;  text-transform:uppercase;">MDE KLINIK</b><br>
-      Jl Kyai Ghozali no 78 Lumajang<br>
-      Telp. 081221928129121
-    </p>
+      <p style="font-size: 10px; text-align:center;">
+        <b style="font-size: 12px;  text-transform:uppercase;">MDE KLINIK</b><br>
+        Jl Kyai Ghozali no 78 Lumajang<br>
+        Telp. 081221928129121
+      </p>
 
     <table style="width:100%; font-size: 10px;">
       <tbody>

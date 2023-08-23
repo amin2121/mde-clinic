@@ -1,11 +1,14 @@
 <?php
-class M_auth extends CI_Model{
-  function __construct(){
+class M_auth extends CI_Model
+{
+  function __construct()
+  {
     parent::__construct();
-		$this->load->database();
+    $this->load->database();
   }
 
-  public function masuk($username, $password){
+  public function masuk($username, $password)
+  {
     $this->db->select('a.id_pegawai, a.nama_pegawai, b.id_cabang, c.nama AS nama_cabang, d.user_level as level');
     $this->db->from('pengaturan_user a');
     $this->db->join('data_pegawai b', 'a.id_pegawai = b.pegawai_id');
@@ -25,12 +28,11 @@ class M_auth extends CI_Model{
 
   public function masuk_apotek($username, $password)
   {
-    $this->db->select('a.id_pegawai, a.nama_pegawai, b.id_cabang, c.nama AS nama_cabang, d.user_level as level');
+    $this->db->select('a.id_pegawai, a.nama_pegawai, a.id_level, b.id_cabang, c.nama AS nama_cabang, d.user_level as level');
     $this->db->from('pengaturan_user a');
     $this->db->join('data_pegawai b', 'a.id_pegawai = b.pegawai_id');
     $this->db->join('data_cabang c', 'b.id_cabang = c.id');
     $this->db->join('pengaturan_user_level d', 'a.id_level = d.id');
-    $this->db->where('b.id_cabang', 3);
     $this->db->where('a.username', $username);
     $this->db->where('a.password', $password);
 

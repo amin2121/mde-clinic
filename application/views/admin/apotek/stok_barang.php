@@ -51,7 +51,7 @@
 					<div class="table-responsive">
 						<table class="table table-bordered table-striped" id="table-stok-barang">
 							<thead>
-								<tr class="bg-success">
+							<tr class="bg-success">
 									<th class="text-center">Kode</th>
 									<th class="text-center">Nama</th>
 									<th class="text-center">Harga Awal</th>
@@ -60,9 +60,12 @@
 									<th class="text-center">Laba</th>
 									<?php endif; ?>
 									<th class="text-center">Stok</th>
-									<th class="text-center">Supplier</th>
 									<th class="text-center">Tanggal Kadaluarsa</th>
-									<th class="text-center">Action</th>
+									<!-- <th class="text-center">Supplier</th> -->
+									<?php if($this->session->userdata('level') != 'Spv'): ?>
+										<th class="text-center">Action</th>
+									<?php endif; ?>
+
 								</tr>
 							</thead>
 							<tbody>
@@ -111,29 +114,23 @@ $(document).ready((e) => {
 						<?php endif; ?>
 
 						let button_owner = ``;
-						<?php if($this->session->userdata('id_level') == 1 || $this->session->userdata('id_level') == 4 || $this->session->userdata('id_level') == 11) : ?>
+						<?php if($this->session->userdata('id_level') == 1 || $this->session->userdata('id_level') == 4 || $this->session->userdata('id_level') == 11 ) : ?>
 							button_owner = `
 								<button type="button" class="btn btn-xs btn-icon bg-primary" onclick="show_modal_ubah_harga(this, ${item.id})"><i class="icon-pencil position-left"></i> Harga</button>
 								<a href="#" class="btn btn-xs btn-icon btn-danger" data-toggle="modal" data-target="#modal_hapus_stok_barang_${item.id}"><i class="icon-trash position-left"></i> Hapus Stok </a>
 								<a href="#" class="btn btn-xs btn-icon btn-success" data-toggle="modal" data-target="#modal_hapus_nama_barang_${item.id}"><i class="icon-trash position-left"></i> Hapus Barang</a>
+								
 							`;
 						<?php else : ?>
 							button_owner = ''
 						<?php endif; ?>
-
-						row += `
-							<tr>
-								<td class="text-center" width="70px">${item.kode_barang}</td>
-								<td class="text-center">${item.nama_barang}</td>
-								<td class="text-right"><b>Rp. </b>${NumberToMoney(item.harga_awal)}</td>
-								<td class="text-right"><b>Rp. </b>${NumberToMoney(item.harga_jual)}</td>
-								${laba}
-								<td class="text-center">${NumberToMoney(item.stok)}</td>
-								<td class="text-center">${item.supplier}</td>
-								<td class="text-center">${item.tanggal_kadaluarsa}</td>
-								<td>
+						
+						let button_kadaluarsa = '';
+						<?php if($this->session->userdata('level') != 'Spv'): ?>
+							button_kadaluarsa = `
+							<td>
 									<div class="text-center">
-										<a href="<?= base_url('apotek/stok_barang/view_ubah_tanggal_kadaluarsa?id_barang=') ?>${item.id}" class="btn btn-xs btn-icon btn-warning btn-text-small"><i class="icon-calendar position-left"></i> Kadaluarsa</a>
+								<a href="<?= base_url('apotek/stok_barang/view_ubah_tanggal_kadaluarsa?id_barang=') ?>${item.id}" class="btn btn-xs btn-icon btn-warning btn-text-small"><i class="icon-calendar position-left"></i> Kadaluarsa</a>
 										${button_owner}
 									</div>
 
@@ -250,6 +247,20 @@ $(document).ready((e) => {
 										</div>
 									</div>
 								</td>
+							`
+						<?php endif; ?>
+
+						row += `
+							<tr>
+								<td class="text-center" width="70px">${item.kode_barang}</td>
+								<td class="text-center">${item.nama_barang}</td>
+								<td class="text-right"><b>Rp. </b>${NumberToMoney(item.harga_awal)}</td>
+								<td class="text-right"><b>Rp. </b>${NumberToMoney(item.harga_jual)}</td>
+f								${laba}
+								<td class="text-center">${NumberToMoney(item.stok)}</td>
+								
+								<td class="text-center">${item.tanggal_kadaluarsa}</td>
+								${button_kadaluarsa}
 
 							</tr>
 						`

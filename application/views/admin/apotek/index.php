@@ -23,11 +23,12 @@
 				<!-- Sidebars overview -->
 				<div class="panel panel-flat border-top-success border-top-lg">
 					<div class="panel-heading">
-						<h5 class="panel-title">Selamat Datang di Menu Apotek,</h5>
+     													
+						<h5 class="panel-title">Selamat Datang di Menu Apotek</h5>
 					</div>
 
 					<div class="panel-body">
-						<p class="content-group"> Silahkan Klik menu disamping untuk memulai layanan Apotek</p>
+						<p class="content-group"> Silahkan Klik menu disamping untuk memulai layanan Apotek </p>
 						<div class="row">
 						<?php
 							$level = $this->session->userdata('level');

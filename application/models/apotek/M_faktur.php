@@ -14,7 +14,7 @@ class M_faktur extends CI_Model {
 
 	public function get_faktur()
 	{
-		return $this->db->limit(1000)->get($this->table_faktur)->result_array();
+		// return $this->db->query("SELECT * FROM farmasi_faktur ORDER BY id LIMIT 100")->result_array();
 	}
 
 	public function cari_faktur_by_tanggal($tanggal = '')

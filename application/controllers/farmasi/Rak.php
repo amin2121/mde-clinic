@@ -12,8 +12,8 @@ class Rak extends CI_Controller {
 	{
 		if (!$this->session->userdata('logged_in')) {
     		redirect('auth');
-    	}
-
+    	
+		}
 		$data['title'] = 'Rak';
 		$data['menu'] = 'farmasi';
 

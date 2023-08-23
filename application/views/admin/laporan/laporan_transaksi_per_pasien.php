@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <?php $this->load->view('admin/css'); ?>
@@ -71,7 +71,7 @@
         								<div class="form-group">
         									<label class="control-label col-sm-3"><b>Tanggal Dari</b></label>
         									<div class="col-sm-8">
-        										<input type="text" class="form-control input-tgl" name="tgl_dari" autocomplete="off">
+        										<input type="text" class="form-control input-tgl" name="tgl_dari" id="tgl_dari" autocomplete="off">
         									</div>
         								</div>
         							</div>
@@ -79,7 +79,7 @@
                         <div class="form-group">
         									<label class="control-label col-sm-3"><b>Tanggal Sampai</b></label>
         									<div class="col-sm-8">
-        										<input type="text" class="form-control input-tgl" name="tgl_sampai" autocomplete="off">
+        										<input type="text" class="form-control input-tgl" name="tgl_sampai" id="tgl_sampai" autocomplete="off">
         									</div>
         								</div>
                       </div>
@@ -90,7 +90,7 @@
                         <div class="form-group">
         									<label class="control-label col-sm-3"><b>Bulan</b></label>
         									<div class="col-sm-8">
-        										<select class="bootstrap-select" data-width="100%" name="bulan">
+        										<select class="bootstrap-select" data-width="100%" name="bulan" id="bulan">
                               <?php
                               $bulan=array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember");
                               $jlh_bln=count($bulan);
@@ -111,7 +111,7 @@
                         <div class="form-group">
         									<label class="control-label col-sm-3"><b>Tahun</b></label>
         									<div class="col-sm-8">
-        										<select class="bootstrap-select" data-width="100%" name="bulan_tahun">
+        										<select class="bootstrap-select" data-width="100%" name="bulan_tahun" id="bulan_tahun">
                               <?php
                               $now=date('Y');
                               for ($a=2010;$a<=$now;$a++){
@@ -131,7 +131,7 @@
                         <div class="form-group">
         									<label class="control-label col-sm-3"><b>Tahun</b></label>
         									<div class="col-sm-8">
-        										<select class="bootstrap-select" data-width="100%" name="tahun">
+        										<select class="bootstrap-select" data-width="100%" name="tahun" id="tahun">
                               <?php
                               $now=date('Y');
                               for ($a=2010;$a<=$now;$a++){
@@ -150,7 +150,7 @@
                       <div class="form-group">
                         <label class="control-label col-sm-1"><b>Pilih Cabang</b></label>
                         <div class="col-sm-5">
-                          <select class="bootstrap-select" data-width="100%" name="id_cabang">
+                          <select class="bootstrap-select" data-width="100%" name="id_cabang" id="id_cabang">
                             <option value="semua">Semua</option>
                             <?php foreach ($cabang as $c): ?>
                               <option value="<?php echo $c['id']; ?>"><?php echo $c['nama']; ?></option>
@@ -161,8 +161,12 @@
                     </div>
 
       						</div>
+                  <button class="btn btn-primary" type="submit"><i class="fa fa-print position-left"></i>
+                      print</button>
 
-									<button class="btn btn-primary" type="submit" style="margin-top: 1em;"><i class="fa fa-search position-left"></i> Cari</button>
+                    <button type="button" class="btn btn-info" onclick="export_excel()"><i class="fa fa-file-excel-o"
+                        style="margin-right: 6px;"></i> Export
+                      Excel</button>
 								</form>
 
 
@@ -210,6 +214,24 @@
         todayHighlight: true
     });
   });
+
+
+
+  
+  function export_excel() {
+      let filter = $('input[name="filter"]:checked').val();
+      let filter_dari = $('#tgl_dari').val();
+      let filter_sampai = $('#tgl_sampai').val();
+      let filter_bulan = $('#bulan').val();
+      let filter_bulantahun = $('#bulan_tahun').val();
+      let filter_tahun = $('#tahun').val();
+      let id_cabang = $('#id_cabang').val();
+      
+      let link = `<?php echo base_url('laporan/transaksi_per_pasien/export_excel'); ?>?filter=${filter}&tgl_dari=${filter_dari}&tgl_sampai=${filter_sampai}&bulan=${filter_bulan}&bulan_tahun=${filter_bulantahun}&tahun=${filter_tahun}&id_cabang=${id_cabang}`;
+      window.open(link, '_blank').focus();
+    }
+
+
 
 </script>
 <!-- /page container -->

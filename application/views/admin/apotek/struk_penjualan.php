@@ -29,9 +29,9 @@
   </style>
   <body class="body">
     <p style="font-size: 10px; text-align:center;">
-      <b style="font-size: 12px;  text-transform:uppercase;"><?php echo $str['nama']; ?></b><br>
-      <?php echo $str['alamat']; ?><br>
-      Telp. <?php echo $str['no_telp']; ?>
+      <b style="font-size: 12px;  text-transform:uppercase;">MDE KLINIK</b><br>
+      Jl Kyai Ghozali no 78 Lumajang<br>
+      Telp. 081221928129121
     </p>
 
     <table style="width:100%; font-size: 10px;">
@@ -74,6 +74,18 @@
           <td style="text-align:left;">Total</td>
           <td style="text-align:right;">Rp :</td>
           <td style="text-align:right;"><?php echo number_format($row['nilai_transaksi']); ?></td>
+        </tr>
+        <tr>
+          <td style="width: 50%;"></td>
+          <td style="text-align:left;">Biaya Racik</td>
+          <td style="text-align:right;">Rp :</td>
+          <td style="text-align:right;"><?php echo number_format($row['biaya_racik']); ?></td>
+        </tr>
+        <tr>
+          <td style="width: 50%;"></td>
+          <td style="text-align:left;">Embalase</td>
+          <td style="text-align:right;">Rp :</td>
+          <td style="text-align:right;"><?php echo number_format($row['embalase']); ?></td>
         </tr>
         <tr>
           <td style="width: 50%;"></td>

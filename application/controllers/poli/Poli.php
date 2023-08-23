@@ -17,7 +17,7 @@ class Poli extends CI_Controller {
 		$data['subtitle'] = 'Antrian';
 		$data['menu'] = 'poli';
 
-		$this->load->view('admin/poli/poli_def', $data);
+		$this->load->view('admin/poli/poli', $data);
 	}
 
 	public function antrian_view($id_poli){
